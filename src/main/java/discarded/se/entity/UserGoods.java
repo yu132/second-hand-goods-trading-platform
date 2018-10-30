@@ -1,8 +1,8 @@
-package se.entity;
+package discarded.se.entity;
 
 import java.util.Date;
 
-public class User_goods {
+public class UserGoods {
 	
 	private int tradeNumber;
 	private User seller;

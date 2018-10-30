@@ -1,10 +1,10 @@
-package se.entity;
+package discarded.se.entity;
 
 public class Goods {
 	
 	private long goodsId;
 	private String price;
-	private Goodstype type;
+	private GoodsType type;
 	private String discription;
 	private int number;
 	private String comments;
@@ -21,10 +21,10 @@ public class Goods {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-	public Goodstype getType() {
+	public GoodsType getType() {
 		return type;
 	}
-	public void setType(Goodstype type) {
+	public void setType(GoodsType type) {
 		this.type = type;
 	}
 	public String getDiscription() {

@@ -1,6 +1,6 @@
-package se.entity;
+package discarded.se.entity;
 
-public class Manager_goods {
+public class ManagerGoods {
 
 	private Manager manager;
 	private Goods goods;

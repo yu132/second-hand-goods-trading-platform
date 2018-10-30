@@ -1,4 +1,4 @@
-package se.entity;
+package discarded.se.entity;
 
 public class Manager {
 	

@@ -1,6 +1,6 @@
-package se.entity;
+package discarded.se.entity;
 
-public enum Goodstype {
+public enum GoodsType {
 	foods,
 	maquillage,
 	jewelry,

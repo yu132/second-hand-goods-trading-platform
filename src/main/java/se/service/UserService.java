@@ -1,5 +1,6 @@
 package se.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,9 @@ public class UserService {
 	private UserInfoRepository userInfoRepository;
 	
 	public Map<String,Object> login(String userName,String password){
-		//TODO
-		return null;
+		Map<String,Object> result=new HashMap<>();
+		result.put("State", "SUCCESS");
+		return result;
 	}
 	
 	public Map<String,Object> register(UserInfo userInfo){

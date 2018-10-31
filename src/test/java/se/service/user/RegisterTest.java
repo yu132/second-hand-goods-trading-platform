@@ -2,6 +2,7 @@ package se.service.user;
 
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import org.junit.Assert;
 import se.Application;
 import se.model.UserInfo;
 import se.service.UserService;
+import se.util.PrepareAndClean;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -20,6 +21,9 @@ public class RegisterTest {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PrepareAndClean prepareAndClean;
 	
 	private UserInfo userInfo=new UserInfo();
 	
@@ -160,4 +164,26 @@ public class RegisterTest {
 		Assert.assertEquals("ADDERSS_TOO_LONG", map.get("Reason"));
 	}
 
+	@Test
+	public void testUserNameExist(){
+		UserInfo userInfoPrepare=new UserInfo();
+		try{
+			userInfoPrepare.setUserName("Test_User_Name123");
+			userInfoPrepare.setPassword("123456");
+			userInfoPrepare.setNickName("NickName");
+			userInfoPrepare.setEmail("test123@se.com");
+			userInfoPrepare.setPhoneNumber("18820765427");
+			userInfoPrepare.setAddress("山东省济南市高新区舜华路1500号山东大学软件园校区2号宿舍楼228宿舍");
+			
+			prepareAndClean.prepareUser(userInfoPrepare);
+			
+			Map<String,Object> map=userService.register(userInfo);
+			
+			Assert.assertEquals("ERROR", map.get("State"));
+			Assert.assertEquals("ADDERSS_TOO_LONG", map.get("Reason"));
+		}finally{
+			prepareAndClean.cleanUser(userInfoPrepare);
+		}
+	}
+	
 }

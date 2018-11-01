@@ -32,6 +32,7 @@ public class ReportGoods {
 	@Column(name = "report_time",length = 20)
 	private Long time;
 	
+	
 	@Column(name = "state",length = 20)
 	private String state;
 	

@@ -42,7 +42,7 @@ public class RegisterTest {
 		Map<String,Object> map=userService.register(userInfo);
 		Assert.assertEquals("SUCCESS", map.get("State"));
 	}
-	
+	//testnull
 	@Test
 	public void testUserNameToShort(){
 		userInfo.setUserName("ts");

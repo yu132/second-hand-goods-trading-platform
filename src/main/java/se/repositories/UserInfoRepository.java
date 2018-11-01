@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 import se.model.UserInfo;
 
 @Repository
-public interface UserInfoRepository extends CrudRepository<UserInfo, Integer>,JpaRepository<UserInfo, Integer>{
+public interface UserInfoRepository extends CrudRepository<UserInfo, Integer>, JpaRepository<UserInfo, Integer> {
+	public UserInfo findByUserNameAndPassword(String userName,String password);
+	public UserInfo findByUserName(String userName);
 }

@@ -19,7 +19,7 @@ spring:
             databaseName: se
          dataSourceClassName: com.mysql.cj.jdbc.MysqlDataSource
          username: root
-         password: 123456
+         password: yt123456
       # 下面为连接池的补充设置，应用到上面所有数据源中
       default-auto-commit: true #自动提交
       auto-commit: true#指定updates是否自动提交

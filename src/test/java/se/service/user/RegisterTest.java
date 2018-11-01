@@ -112,7 +112,7 @@ public class RegisterTest {
 	
 	@Test
 	public void testPasswordIllegalCharacter(){
-		userInfo.setPassword("大肥羊666666");
+		userInfo.setPassword("大肥羊66666666");
 		Map<String,Object> map=userService.register(userInfo);
 		
 		Assert.assertEquals("ERROR", map.get("State"));
@@ -165,7 +165,7 @@ public class RegisterTest {
 		Map<String,Object> map=userService.register(userInfo);
 		
 		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("Email_TOO_LONG", map.get("Reason"));
+		Assert.assertEquals("EMAIL_TOO_LONG", map.get("Reason"));
 	}
 	
 	@Test

@@ -11,12 +11,18 @@ public class UserServiceJudge {
 	private final int USERNAME_MAX_LENGTH=20;
 	private final int PASSWORD_MIN_LENGTH=10;
 	private final int PASSWORD_MAX_LENGTH=30;
+	private final int NICKNAME_MIN_LENGTH=2;
+	private final int NICKNAME_MAX_LENGTH=30;
+	private final int EMAIL_MAX_LENGTH=100;
+	private final int PHONE_NUMBER_MAX_LENGTH=30;
+	private final int ADDERSS_MAX_LENGTH=100;
 
+	
 	public Map<String,Object> judgeUserName(String userName){
 		Map<String,Object> result=new HashMap<>();
 		if("".equals(userName)){
 			result.put("State", "ERROR");
-			result.put("Reason", "USERNAME_NOT_EXIST");
+			result.put("Reason", "USERNAME_IS_NULL");
 		}else if(userName.length()<USERNAME_MIN_LENGTH){
 			result.put("State", "ERROR");
 			result.put("Reason", "USERNAME_TOO_SHORT");
@@ -36,7 +42,7 @@ public class UserServiceJudge {
 		Map<String,Object> result=new HashMap<>();
 		if("".equals(password)){
 			result.put("State", "ERROR");
-			result.put("Reason", "PASSWORD_NOT_EXIST");
+			result.put("Reason", "PASSWORD_IS_NULL");
 		}else if(password.length()<PASSWORD_MIN_LENGTH){
 			result.put("State", "ERROR");
 			result.put("Reason", "PASSWORD_TOO_SHORT");
@@ -55,11 +61,11 @@ public class UserServiceJudge {
 		Map<String,Object> result=new HashMap<>();
 		if("".equals(nickName)){
 			result.put("State", "ERROR");
-			result.put("Reason", "NICKNAME_NOT_EXIST");
-		}else if(nickName.length()<2){
+			result.put("Reason", "NICKNAME_IS_NULL");
+		}else if(nickName.length()<NICKNAME_MIN_LENGTH){
 			result.put("State", "ERROR");
 			result.put("Reason", "NICKNAME_TOO_SHORT");
-		}else if(nickName.length()>30){
+		}else if(nickName.length()>NICKNAME_MAX_LENGTH){
 			result.put("State", "ERROR");
 			result.put("Reason", "NICKNAME_TOO_LONG");
 		}else{
@@ -69,10 +75,13 @@ public class UserServiceJudge {
 	}
 	public Map<String,Object> judgeEmail(String email){
 		Map<String,Object> result=new HashMap<>();
-		if(!judgeEmailChar(email)){
+		if("".equals(email)){
+			result.put("State", "ERROR");
+			result.put("Reason", "EMAIL_IS_NULL");
+		}else if(!judgeEmailChar(email)){
 			result.put("State", "ERROR");
 			result.put("Reason", "EMAIL_ILLEGAL");
-		}else if(email.length()>100){
+		}else if(email.length()>EMAIL_MAX_LENGTH){
 			result.put("State", "ERROR");
 			result.put("Reason", "EMAIL_TOO_LONG");
 		}else{
@@ -82,7 +91,7 @@ public class UserServiceJudge {
 	}
 	public Map<String,Object> judgePhoneNumber(String phoneNumber){
 		Map<String,Object> result=new HashMap<>();
-		if(phoneNumber.length()>30){
+		if(phoneNumber.length()>PHONE_NUMBER_MAX_LENGTH){
 			result.put("State", "ERROR");
 			result.put("Reason", "PHONE_NUMBER_TOO_LONG");
 		}else if(!judgePhoneNumberChar(phoneNumber)){
@@ -95,7 +104,7 @@ public class UserServiceJudge {
 	}
 	public Map<String,Object> judgeAddress(String address){
 		Map<String,Object> result=new HashMap<>();
-		if(address.length()>100){
+		if(address.length()>ADDERSS_MAX_LENGTH){
 			result.put("State", "ERROR");
 			result.put("Reason", "ADDERSS_TOO_LONG");
 		}else{

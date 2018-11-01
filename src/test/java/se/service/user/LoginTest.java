@@ -58,11 +58,29 @@ public class LoginTest {
 	}
 	
 	@Test
+	public void testUserIsNull(){
+		userName=null;
+		Map<String,Object> map=userService.login(userName, password);
+		
+		Assert.assertEquals("ERROR", map.get("State"));
+		Assert.assertEquals("USERNAME_IS_NULL", map.get("Reason"));
+	}
+	
+	@Test
 	public void testUserNameNotExist(){
 		Map<String,Object> map=userService.login(userName, password);
 		
 		Assert.assertEquals("ERROR", map.get("State"));
 		Assert.assertEquals("USERNAME_NOT_EXIST", map.get("Reason"));
+	}
+	
+	@Test
+	public void testPasswordIsNull(){
+		password=null;
+		Map<String,Object> map=userService.login(userName, password);
+		
+		Assert.assertEquals("ERROR", map.get("State"));
+		Assert.assertEquals("PASSWORD_IS_NULL", map.get("Reason"));
 	}
 	
 	@Test
@@ -89,26 +107,12 @@ public class LoginTest {
 	
 	@Test
 	public void testSQLInjection(){
-		UserInfo userInfoPrepare=new UserInfo();
-		try{
-			userInfoPrepare.setUserName("TestUserName");
-			userInfoPrepare.setPassword("TestPassword");
-			userInfoPrepare.setNickName("NickName");
-			userInfoPrepare.setEmail("test123@se.com");
-			userInfoPrepare.setPhoneNumber("18820765427");
-			userInfoPrepare.setAddress("山东省济南市高新区舜华路1500号山东大学软件园校区2号宿舍楼228宿舍");
+		userName="' or 1=1#";
 		
-			prepareAndClean.prepareUser(userInfoPrepare);
-			
-			userName="' or 1=1#";
-			
-			Map<String,Object> map=userService.login(userName, password);
-			
-			Assert.assertEquals("ERROR", map.get("State"));
-			Assert.assertEquals("USERNAME_NOT_EXIST", map.get("Reason"));
-		}finally{
-			prepareAndClean.cleanUser(userInfoPrepare);
-		}
+		Map<String,Object> map=userService.login(userName, password);
+		
+		Assert.assertEquals("ERROR", map.get("State"));
+		Assert.assertEquals("USERNAME_NOT_EXIST", map.get("Reason"));
 	}
 	
 }

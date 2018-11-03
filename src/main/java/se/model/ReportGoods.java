@@ -9,6 +9,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
 
+/**
+ * 举报商品
+ * @author HP
+ *
+ */
 @Data
 @Entity
 @Table(name="t_report_goods")
@@ -20,18 +25,33 @@ public class ReportGoods {
 	@Column(name = "id",length = 11)
 	private Integer id;
 	
-	@Column(name = "report_from_user_id",length = 11,nullable=false)
+	/**
+	 * 举报发起用户id
+	 */
+	@Column(name = "from_user_id",length = 11,nullable=false)
 	private Integer reportFromUserId;
 	
-	@Column(name = "report_to_goods_id",length = 11)
+	/**
+	 * 被举报商品id
+	 */
+	@Column(name = "to_goods_id",length = 11)
 	private Integer reportToGoodsId;
 	
-	@Column(name = "content",length = 255)
+	/**
+	 * 举报理由
+	 */
+	@Column(name = "report_content",length = 255)
 	private String content;
 	
-	@Column(name = "report_time",length = 20)
+	/**
+	 * 举报时间
+	 */
+	@Column(name = "time",length = 20)
 	private Long time;
 	
+	/**
+	 * 举报状态
+	 */
 	@Column(name = "state",length = 20)
 	private String state;
 	

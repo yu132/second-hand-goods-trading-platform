@@ -9,6 +9,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
 
+/**
+ * 求购表
+ * @author HP
+ *
+ */
 @Data
 @Entity
 @Table(name="t_want_to_by")
@@ -20,18 +25,33 @@ public class WantToBy {
 	@Column(name = "id",length = 11)
 	private Integer id;
 	
+	/**
+	 * 用户id
+	 */
 	@Column(name = "user_id",length = 20,nullable=false)
 	private Integer userId;
 	
+	/**
+	 * 发表求购信息时间
+	 */
 	@Column(name = "time",length = 20)
 	private String time;
 	
+	/**
+	 * 求购信息描述
+	 */
 	@Column(name = "description",length = 255)
 	private String description;
 	
+	/**
+	 * 求购数量
+	 */
 	@Column(name = "amount",length = 20)
 	private Integer amount;
 	
+	/**
+	 * 求购信息状态
+	 */
 	@Column(name = "state",length = 20)
 	private String state;
 

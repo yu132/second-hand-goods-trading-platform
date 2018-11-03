@@ -10,29 +10,52 @@ import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
 
+
+/**
+ * 用户对商品的评价
+ * @author HP
+ *
+ */
+
 @Data
 @Entity
 @Table(name="t_comment_to_goods")
 public class CommentsToGoods {
 	
+
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
 	@GeneratedValue(generator = "generator")
-	@Column(name = "comment_to_goods_id",length = 11)
+	@Column(name = "id",length = 11)
 	private Integer id;
 	
+	/**
+	 * 发表评论用户id
+	 */
 	@Column(name = "from_user_id",length = 11)
 	private Integer fromUserId;
 	
+	/**
+	 * 被评论商品id
+	 */
 	@Column(name = "to_goods_id",length = 11)
 	private Integer toGoodsId;
 	
+	/**
+	 * 评论内容
+	 */
 	@Column(name = "comment_content",length = 255)
 	private String content;
 	
-	@Column(name = "score",length = 20)
+	/**
+	 * 评价分数
+	 */
+	@Column(name = "comment_score",length = 20)
 	private Double score;
 	
-	@Column(name = "comment_time",length = 20)
+	/**
+	 * 发表评论时间
+	 */
+	@Column(name = "time",length = 20)
 	private Long time;
 }

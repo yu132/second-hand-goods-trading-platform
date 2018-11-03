@@ -10,7 +10,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
-
+/**
+ * 商品类
+ * @author HP
+ *
+ */
 @Data
 @Entity
 @Table(name="t_goods")
@@ -19,31 +23,54 @@ public class Goods {
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
 	@GeneratedValue(generator = "generator")
-	@Column(name = "goods_id",length = 11)
+	@Column(name = "id",length = 11)
 	private Integer id;
-	
-	@Column(name = "seller_id",length = 11,nullable=false)
 
+	/**
+	 * 卖家id
+	 */
+	@Column(name = "seller_id",length = 11,nullable=false)
 	private Integer sellerId;
 	
+	/**
+	 * 商品名称
+	 */
 	@Column(name = "goods_name",length = 255,nullable=false)
 	private String goodsName;
 	
+	/**
+	 * 商品价格
+	 */
 	@Column(name = "goods_price",length = 20,nullable=false)
 	private Double price;
 	
-	@Column(name = "amount",length = 11)
+	/**
+	 * 商品数量
+	 */
+	@Column(name = "goods_amount",length = 11)
 	private Integer amount;
 	
+	/**
+	 * 商品描述
+	 */
 	@Column(name = "goods_description",length = 255)
 	private String description;
 	
+	/**
+	 * 是否需要邮件提醒
+	 */
 	@Column(name = "need_email_remind",length = 10)
 	private Boolean emailRemind;
 	
+	/**
+	 * 商品状态
+	 */
 	@Column(name = "state",length = 10)
 	private String state;
 	
+	/**
+	 * 商品上传时间
+	 */
 	@Column(name = "time",length = 20)
 	private Long time;
 	

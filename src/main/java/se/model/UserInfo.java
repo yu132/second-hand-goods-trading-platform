@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="t_user_info",uniqueConstraints={@UniqueConstraint(columnNames={"loginName"})},    //唯一约束
+@Table(name="t_user_info",uniqueConstraints={@UniqueConstraint(columnNames={"user_name"})},    //唯一约束
 indexes = {@Index(columnList = "nick_name")})
 public class UserInfo {
 	

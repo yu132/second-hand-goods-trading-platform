@@ -17,14 +17,14 @@ public class CommentsToUser {
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
 	@GeneratedValue(generator = "generator")
-	@Column(name = "comment_to_users_id",length = 11)
+	@Column(name = "comment_to_user_id",length = 11)
 	private Integer id;
 	
-	@Column(name = "comment_from_user_id",length = 11)
-	private Integer commentFromUserId;
+	@Column(name = "from_user_id",length = 11)
+	private Integer fromUserId;
 	
-	@Column(name = "comment_to_user_id",length = 11)
-	private Integer commentToUserId;
+	@Column(name = "to_user_id",length = 11)
+	private Integer toUserId;
 	
 	@Column(name = "comment_content",length = 255)
 	private String content;

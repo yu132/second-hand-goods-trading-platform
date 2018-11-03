@@ -24,7 +24,7 @@ public class ShoppingTrolley {
 	@Column(name = "user_id",length = 11)
 	private Integer userId;
 	
-	@Column(name = "trolley_id",length = 11)
+	@Column(name = "goods_id",length = 11)
 	private Integer goodsId;
 	
 	@Column(name = "amount",length = 11)

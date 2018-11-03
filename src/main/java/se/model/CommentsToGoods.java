@@ -21,11 +21,11 @@ public class CommentsToGoods {
 	@Column(name = "comment_to_goods_id",length = 11)
 	private Integer id;
 	
-	@Column(name = "comment_from_user_id",length = 11)
-	private Integer commentFromUserId;
+	@Column(name = "from_user_id",length = 11)
+	private Integer fromUserId;
 	
-	@Column(name = "comment_to_goods_id",length = 11)
-	private Integer commentToGoodsId;
+	@Column(name = "to_goods_id",length = 11)
+	private Integer toGoodsId;
 	
 	@Column(name = "comment_content",length = 255)
 	private String content;

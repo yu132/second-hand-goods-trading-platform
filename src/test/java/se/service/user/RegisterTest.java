@@ -8,10 +8,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
 import se.model.UserInfo;
+import se.repositories.UserInfoRepository;
 import se.service.UserService;
 import se.util.PrepareAndClean;
 
@@ -24,6 +26,9 @@ public class RegisterTest {
 	
 	@Autowired
 	private PrepareAndClean prepareAndClean;
+	
+	@Autowired
+	private UserInfoRepository userInfoRepository;
 	
 	private UserInfo userInfo=new UserInfo();
 	
@@ -42,6 +47,9 @@ public class RegisterTest {
 		try{
 			Map<String,Object> map=userService.register(userInfo);
 			Assert.assertEquals("SUCCESS", map.get("State"));
+			
+			Example<UserInfo> userInfoExample = Example.of(userInfo);
+			Assert.assertTrue(userInfoRepository.exists(userInfoExample));
 		}finally{
 			prepareAndClean.cleanUser(userInfo);
 		}

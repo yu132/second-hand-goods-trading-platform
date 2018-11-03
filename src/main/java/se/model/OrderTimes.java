@@ -14,6 +14,9 @@ import lombok.Data;
 @Table(name="t_order_times")
 public class OrderTimes {
 
+	@Id
+	@GenericGenerator(name = "generator", strategy = "native")
+	@GeneratedValue(generator = "generator")
 	@Column(name = "order_times_id",length = 11)
 	private Integer id;
 	

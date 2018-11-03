@@ -38,8 +38,8 @@ public class Goods {
 	@Column(name = "goods_description",length = 255)
 	private String description;
 	
-	@Column(name = "need_emailRemind",length = 10)
-	private String emailRemind;
+	@Column(name = "need_email_remind",length = 10)
+	private Boolean emailRemind;
 	
 	@Column(name = "state",length = 10)
 	private String state;

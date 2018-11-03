@@ -5,6 +5,7 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.After;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -254,6 +255,11 @@ public class RegisterTest {
 		}finally{
 			prepareAndClean.cleanUser(userInfoPrepare);
 		}
+	}
+	
+	@After
+	public void clean(){
+		prepareAndClean.cleanUser(userInfo);
 	}
 	
 }

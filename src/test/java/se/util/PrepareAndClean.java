@@ -9,6 +9,19 @@ import se.repositories.UserInfoRepository;
 @Service
 public class PrepareAndClean {
 
+	private final UserInfo DEFAULT_USER;
+	private boolean DefaultUserExist;
+	
+	{
+		DEFAULT_USER=new UserInfo();
+		DEFAULT_USER.setUserName("Test_User_Name123");
+		DEFAULT_USER.setPassword("#Test^(P@sswOrd!)+");
+		DEFAULT_USER.setNickName("TestNickName");
+		DEFAULT_USER.setEmail("test@se.com");
+		DEFAULT_USER.setPhoneNumber("18820765428");
+		DEFAULT_USER.setAddress("山东省济南市高新区舜华路1500号山东大学软件园校区2号宿舍楼229宿舍");
+	}
+	
 	@Autowired
 	private UserInfoRepository userInfoRepository;
 	
@@ -18,6 +31,21 @@ public class PrepareAndClean {
 	
 	public void cleanUser(UserInfo userInfo){
 		userInfoRepository.delete(userInfo);
+	}
+	
+	public UserInfo prepareDefaultUser(){
+		if(!DefaultUserExist){
+			userInfoRepository.save(DEFAULT_USER);
+			DefaultUserExist=true;
+		}
+		return DEFAULT_USER;
+	}
+	
+	public void cleanDefaultUser(){
+		if(DefaultUserExist){
+			userInfoRepository.delete(DEFAULT_USER);
+			DefaultUserExist=false;
+		}
 	}
 	
 }

@@ -28,7 +28,7 @@ public class UserInfo {
 	private String userName;
 	
 	@Column(name = "password",length = 30,nullable=false )
-	private String passWord;
+	private String password;
 	
 	@Column(name = "nick_name",length = 30,nullable=false ,unique=true)
 	private String nickName;

@@ -21,12 +21,22 @@ public class UserService {
 	
 	public Map<String,Object> login(String userName,String password){
 		Map<String,Object> result=new HashMap<>();
+		if(userName==null){
+			result.put("State", "ERROR");
+			result.put("Reason", "USERNAME_IS_NULL");
+			return result;
+		}else if(password==null){
+			result.put("State", "ERROR");
+			result.put("Reason", "PASSWORD_IS_NULL");
+			return result;
+		}
 		UserInfo userInfo=userInfoRepository.findByUserName(userName);
 		if(userInfo==null){
 			result.put("State", "ERROR");
 			result.put("Reason", "USERNAME_NOT_EXIST");
-		}else if(password!=userInfo.getPassword()){
+		}else if(!password.equals(userInfo.getPassword())){
 			result.put("State", "ERROR");
+			result.put("Reason", "PASSWORD_INCORRECT");
 		}else{
 			result.put("State", "SUCCESS");
 		}

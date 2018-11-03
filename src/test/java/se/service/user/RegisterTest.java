@@ -121,7 +121,7 @@ public class RegisterTest {
 	
 	@Test
 	public void testNickNameIsNull(){
-		userInfo.setPassword(null);
+		userInfo.setNickName(null);
 		Map<String,Object> map=userService.register(userInfo);
 		
 		Assert.assertEquals("ERROR", map.get("State"));
@@ -148,7 +148,7 @@ public class RegisterTest {
 	
 	@Test
 	public void testEmailIsNull(){
-		userInfo.setPassword(null);
+		userInfo.setEmail(null);
 		Map<String,Object> map=userService.register(userInfo);
 		
 		Assert.assertEquals("ERROR", map.get("State"));

@@ -3,7 +3,12 @@ package se.service.judge;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import se.model.UserInfo;
+import se.repositories.UserInfoRepository;
 
 @Service
 public class UserServiceJudge {
@@ -17,12 +22,18 @@ public class UserServiceJudge {
 	private final int PHONE_NUMBER_MAX_LENGTH=30;
 	private final int ADDERSS_MAX_LENGTH=100;
 
+	@Autowired
+	private UserInfoRepository userInfoRepository;
 	
 	public Map<String,Object> judgeUserName(String userName){
 		Map<String,Object> result=new HashMap<>();
-		if("".equals(userName)){
+		UserInfo userInfo=userInfoRepository.findByUserName(userName);
+		if("".equals(userName)||userName==null){
 			result.put("State", "ERROR");
 			result.put("Reason", "USERNAME_IS_NULL");
+		}else if(userInfo!=null){
+			result.put("State", "ERROR");
+			result.put("Reason", "USERNAME_EXIST");
 		}else if(userName.length()<USERNAME_MIN_LENGTH){
 			result.put("State", "ERROR");
 			result.put("Reason", "USERNAME_TOO_SHORT");
@@ -40,7 +51,7 @@ public class UserServiceJudge {
 	}
 	public Map<String,Object> judgePassword(String password){
 		Map<String,Object> result=new HashMap<>();
-		if("".equals(password)){
+		if("".equals(password)||password==null){
 			result.put("State", "ERROR");
 			result.put("Reason", "PASSWORD_IS_NULL");
 		}else if(password.length()<PASSWORD_MIN_LENGTH){
@@ -59,7 +70,7 @@ public class UserServiceJudge {
 	}
 	public Map<String,Object> judgeNickName(String nickName){
 		Map<String,Object> result=new HashMap<>();
-		if("".equals(nickName)){
+		if("".equals(nickName)||nickName==null){
 			result.put("State", "ERROR");
 			result.put("Reason", "NICKNAME_IS_NULL");
 		}else if(nickName.length()<NICKNAME_MIN_LENGTH){
@@ -75,7 +86,7 @@ public class UserServiceJudge {
 	}
 	public Map<String,Object> judgeEmail(String email){
 		Map<String,Object> result=new HashMap<>();
-		if("".equals(email)){
+		if("".equals(email)||email==null){
 			result.put("State", "ERROR");
 			result.put("Reason", "EMAIL_IS_NULL");
 		}else if(!judgeEmailChar(email)){
@@ -128,7 +139,7 @@ public class UserServiceJudge {
 	    return isMatch;
 	}
 	private boolean judgePhoneNumberChar(String phoneNumber){
-		String pattern = "(?:[0-9])+";
+		String pattern = "^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[06-8])\\d{8}$";
 		boolean isMatch = Pattern.matches(pattern, phoneNumber);
 	    return isMatch;
 	}

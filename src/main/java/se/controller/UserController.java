@@ -13,12 +13,12 @@ public class UserController {
 	private UserService userSrvice;
 	public Object login(String userName,String password){
 		//TODO
-		return null;
+		return userSrvice.login(userName, password);
 	}
 	
 	public Object register(UserInfo userInfo){
 		//TODO
-		return null;
+		return userSrvice.register(userInfo);
 	}
 	
 }

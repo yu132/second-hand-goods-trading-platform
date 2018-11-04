@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.enumDefine.executeState.State;
 import se.enumDefine.reason.Reason;
-import se.enumDefine.state.State;
 import se.model.UserInfo;
 import se.repositories.UserInfoRepository;
 

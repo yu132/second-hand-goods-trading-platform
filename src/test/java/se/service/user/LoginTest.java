@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
+import se.enumDefine.executeState.State;
 import se.enumDefine.reason.Reason;
-import se.enumDefine.state.State;
 import se.model.UserInfo;
 import se.service.UserService;
 import se.util.PrepareAndClean;

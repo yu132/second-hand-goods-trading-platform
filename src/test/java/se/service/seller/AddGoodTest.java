@@ -13,6 +13,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
+import se.enumDefine.executeState.State;
+import se.enumDefine.goodState.GoodState;
 import se.model.Goods;
 import se.model.UserInfo;
 import se.repositories.GoodsRepository;
@@ -55,21 +57,35 @@ public class AddGoodTest {
 		
 		Map<String, Object> res=sellerService.addGood(uid, good);
 		
-		Assert.assertEquals("SUCCESS", res.get("State"));
+		Assert.assertEquals(State.SUCCESS, res.get("State"));
 		
 		Assert.assertEquals(uid, good.getSellerId());
 		
-		Assert.assertEquals("WAIT_CHECK", good.getState());
+		Assert.assertEquals(GoodState.WAIT_CHECK, good.getState());
 		
 		Example<Goods> example=Example.of(good);
 		Assert.assertTrue(goodsRepository.exists(example));
-		
-		goodsRepository.delete(good);
 	}
 	
 	@Test
 	public void testExist(){
-		//TODO
+		Goods good1=new Goods();
+		
+		good1.setGoodsName("肥羊");
+		good1.setPrice(111.11);
+		good1.setAmount(1);
+		good1.setDescription("大肥羊");
+		good1.setEmailRemind(Boolean.TRUE);
+		
+		prepareAndClean.prepareGood(good1);
+		
+		Integer uid=user.getId();
+		
+		Map<String, Object> res=sellerService.addGood(uid, good);
+		
+		Assert.assertEquals("SUCCESS", res.get("State"));
+		
+		
 	}
 	
 	@Test
@@ -80,6 +96,9 @@ public class AddGoodTest {
 	@After
 	public void clean(){
 		prepareAndClean.cleanDefaultUser();
+		try{
+			prepareAndClean.cleanGood(good);
+		}catch(Exception e){}
 	}
 
 }

@@ -3,7 +3,9 @@ package se.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.model.Goods;
 import se.model.UserInfo;
+import se.repositories.GoodsRepository;
 import se.repositories.UserInfoRepository;
 
 @Service
@@ -46,6 +48,17 @@ public class PrepareAndClean {
 			userInfoRepository.delete(DEFAULT_USER);
 			DefaultUserExist=false;
 		}
+	}
+	
+	@Autowired
+	private GoodsRepository goodsRepository;
+	
+	public void prepareGood(Goods good){
+		goodsRepository.save(good);
+	}
+	
+	public void cleanGood(Goods good){
+		goodsRepository.delete(good);
 	}
 	
 }

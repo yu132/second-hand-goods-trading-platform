@@ -89,6 +89,7 @@ public class UserService {
 		if(result.get("State").equals(ExecuteState.ERROR)){
 			return result;
 		}else{
+			userInfo.setBalance(0.0);
 			userInfoRepository.save(userInfo);
 			return result;
 		}

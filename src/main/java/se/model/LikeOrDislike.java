@@ -1,4 +1,6 @@
 package se.model;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +48,7 @@ public class LikeOrDislike {
 	/**
 	 * 踩赞时间
 	 */
-	@Column(name = "time",length = 20)
-	private Long time;
+	@Column(name = "commit_time",length = 20)
+	private Date commitTime;
 	
 }

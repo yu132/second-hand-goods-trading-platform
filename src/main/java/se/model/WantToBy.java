@@ -1,4 +1,6 @@
 package se.model;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,8 +36,8 @@ public class WantToBy {
 	/**
 	 * 发表求购信息时间
 	 */
-	@Column(name = "time",length = 20)
-	private String time;
+	@Column(name = "commit_time",length = 20)
+	private Date commitTime;
 	
 	/**
 	 * 求购信息描述

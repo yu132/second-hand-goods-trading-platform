@@ -1,5 +1,7 @@
 package se.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -86,6 +88,6 @@ public class UserInfo {
 	 * 用户注册时间
 	 */
 	@Column(name = "register_time",length = 50)
-	private Long time;
+	private Date RegisterTime;
 	
 }

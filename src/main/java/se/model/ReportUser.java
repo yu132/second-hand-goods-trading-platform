@@ -1,4 +1,6 @@
 package se.model;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,8 +47,8 @@ public class ReportUser {
 	/**
 	 * 举报时间
 	 */
-	@Column(name = "time",length = 20)
-	private Long time;
+	@Column(name = "report_time",length = 20)
+	private Date reportTime;
 	
 	/**
 	 * 举报状态

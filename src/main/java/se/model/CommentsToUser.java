@@ -1,4 +1,6 @@
 package se.model;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,6 +53,6 @@ public class CommentsToUser {
 	/**
 	 * 发表评论时间
 	 */
-	@Column(name = "time",length = 20)
-	private Long time;
+	@Column(name = "comment_time",length = 20)
+	private Date commentTime;
 }

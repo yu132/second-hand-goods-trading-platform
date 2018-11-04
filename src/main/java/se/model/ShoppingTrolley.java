@@ -1,5 +1,7 @@
 package se.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,6 +49,6 @@ public class ShoppingTrolley {
 	/**
 	 * 加入时间
 	 */
-	@Column(name = "time",length = 11)
-	private Long time;
+	@Column(name = "add_time",length = 11)
+	private Date addTime;
 }

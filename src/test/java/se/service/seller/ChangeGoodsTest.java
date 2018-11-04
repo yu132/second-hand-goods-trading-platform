@@ -1,5 +1,5 @@
 package se.service.seller;
 
-public class ChangeGoodTest {
+public class ChangeGoodsTest {
 
 }

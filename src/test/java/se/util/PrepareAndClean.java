@@ -53,12 +53,12 @@ public class PrepareAndClean {
 	@Autowired
 	private GoodsRepository goodsRepository;
 	
-	public void prepareGood(Goods good){
-		goodsRepository.save(good);
+	public void prepareGoods(Goods goods){
+		goodsRepository.save(goods);
 	}
 	
-	public void cleanGood(Goods good){
-		goodsRepository.delete(good);
+	public void cleanGoods(Goods goods){
+		goodsRepository.delete(goods);
 	}
 	
 }

@@ -25,9 +25,15 @@ public enum Reason {
 	PHONE_NUMBER_ILLEGAL,
 	ADDERSS_TOO_LONG,
 	
+	USER_INFO_IS_NULL,
+	
+	
 	
 	/**
 	 * 货品模块失败原因
 	 */
-	GOOD_EXIST,
+	GOODS_EXIST,
+	USER_ID_IS_NULL,
+	GOODS_IS_NULL,
+	GOODS_NAME_TOO_LONG,
 }

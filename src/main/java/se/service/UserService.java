@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import se.enumDefine.executeState.State;
+import se.enumDefine.executeState.ExecuteState;
 import se.enumDefine.reason.Reason;
 import se.model.UserInfo;
 import se.repositories.UserInfoRepository;
@@ -26,11 +26,11 @@ public class UserService {
 		Map<String,Object> result=new HashMap<>();
 		
 		if(userName==null){
-			result.put("State", State.ERROR);
+			result.put("State", ExecuteState.ERROR);
 			result.put("Reason", Reason.USERNAME_IS_NULL);
 			return result;
 		}else if(password==null){
-			result.put("State", State.ERROR);
+			result.put("State", ExecuteState.ERROR);
 			result.put("Reason", Reason.PASSWORD_IS_NULL);
 			return result;
 		}
@@ -38,13 +38,13 @@ public class UserService {
 		UserInfo userInfo=userInfoRepository.findByUserName(userName);
 		
 		if(userInfo==null){
-			result.put("State", State.ERROR);
+			result.put("State", ExecuteState.ERROR);
 			result.put("Reason", Reason.USERNAME_NOT_EXIST);
 		}else if(!password.equals(userInfo.getPassword())){
-			result.put("State", State.ERROR);
+			result.put("State", ExecuteState.ERROR);
 			result.put("Reason", Reason.PASSWORD_INCORRECT);
 		}else{
-			result.put("State", State.SUCCESS);
+			result.put("State", ExecuteState.SUCCESS);
 		}
 		
 		return result;
@@ -56,37 +56,37 @@ public class UserService {
 		
 		String userName=userInfo.getUserName();
 		result=userServiceJudge.judgeUserName(userName);
-		if(result.get("State").equals(State.ERROR)){
+		if(result.get("State").equals(ExecuteState.ERROR)){
 			return result;
 		}
 		
 		String password=userInfo.getPassword();
 		result=userServiceJudge.judgePassword(password);
-		if(result.get("State").equals(State.ERROR)){
+		if(result.get("State").equals(ExecuteState.ERROR)){
 			return result;
 		}
 		
 		String nickName=userInfo.getNickName();
 		result=userServiceJudge.judgeNickName(nickName);
-		if(result.get("State").equals(State.ERROR)){
+		if(result.get("State").equals(ExecuteState.ERROR)){
 			return result;
 		}
 		
 		String email=userInfo.getEmail();
 		result=userServiceJudge.judgeEmail(email);
-		if(result.get("State").equals(State.ERROR)){
+		if(result.get("State").equals(ExecuteState.ERROR)){
 			return result;
 		}
 		
 		String phoneNumber=userInfo.getPhoneNumber();
 		result=userServiceJudge.judgePhoneNumber(phoneNumber);
-		if(result.get("State").equals(State.ERROR)){
+		if(result.get("State").equals(ExecuteState.ERROR)){
 			return result;
 		}
 		
 		String address=userInfo.getAddress();
 		result=userServiceJudge.judgeAddress(address);
-		if(result.get("State").equals(State.ERROR)){
+		if(result.get("State").equals(ExecuteState.ERROR)){
 			return result;
 		}else{
 			userInfoRepository.save(userInfo);

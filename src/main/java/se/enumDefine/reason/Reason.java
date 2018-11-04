@@ -1,6 +1,9 @@
 package se.enumDefine.reason;
 
 public enum Reason {
+	/**
+	 * 注册登录失败原因
+	 */
 	USERNAME_IS_NULL,
 	USERNAME_NOT_EXIST,
 	USERNAME_EXIST,
@@ -20,5 +23,11 @@ public enum Reason {
 	EMAIL_TOO_LONG,
 	PHONE_NUMBER_TOO_LONG,
 	PHONE_NUMBER_ILLEGAL,
-	ADDERSS_TOO_LONG
+	ADDERSS_TOO_LONG,
+	
+	
+	/**
+	 * 货品模块失败原因
+	 */
+	GOOD_EXIST,
 }

@@ -1,6 +1,6 @@
 package se.enumDefine.executeState;
 
-public enum State {
+public enum ExecuteState {
 	
 	SUCCESS,
 	ERROR;

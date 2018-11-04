@@ -1,4 +1,4 @@
-package se.reasonEnum;
+package se.enumDefine.reason;
 
 public enum Reason {
 	USERNAME_IS_NULL,

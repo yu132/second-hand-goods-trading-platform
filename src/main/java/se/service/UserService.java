@@ -6,11 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.enumDefine.reason.Reason;
+import se.enumDefine.state.State;
 import se.model.UserInfo;
-import se.reasonEnum.Reason;
 import se.repositories.UserInfoRepository;
 import se.service.judge.UserServiceJudge;
-import se.stateEnum.State;
 
 @Service
 public class UserService {

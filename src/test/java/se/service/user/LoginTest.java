@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
+import se.enumDefine.reason.Reason;
+import se.enumDefine.state.State;
 import se.model.UserInfo;
 import se.service.UserService;
 import se.util.PrepareAndClean;
@@ -50,7 +52,7 @@ public class LoginTest {
 			
 			Map<String,Object> map=userService.login(userName, password);
 			
-			Assert.assertEquals("SUCCESS", map.get("State"));
+			Assert.assertEquals(State.SUCCESS, map.get("State"));
 			
 		}finally{
 			prepareAndClean.cleanUser(userInfoPrepare);
@@ -62,16 +64,16 @@ public class LoginTest {
 		userName=null;
 		Map<String,Object> map=userService.login(userName, password);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("USERNAME_IS_NULL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.USERNAME_IS_NULL, map.get("Reason"));
 	}
 	
 	@Test
 	public void testUserNameNotExist(){
 		Map<String,Object> map=userService.login(userName, password);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("USERNAME_NOT_EXIST", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.USERNAME_NOT_EXIST, map.get("Reason"));
 	}
 	
 	@Test
@@ -79,8 +81,8 @@ public class LoginTest {
 		password=null;
 		Map<String,Object> map=userService.login(userName, password);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("PASSWORD_IS_NULL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.PASSWORD_IS_NULL, map.get("Reason"));
 	}
 	
 	@Test
@@ -98,8 +100,8 @@ public class LoginTest {
 			
 			Map<String,Object> map=userService.login(userName, password);
 			
-			Assert.assertEquals("ERROR", map.get("State"));
-			Assert.assertEquals("PASSWORD_INCORRECT", map.get("Reason"));
+			Assert.assertEquals(State.ERROR, map.get("State"));
+			Assert.assertEquals(Reason.PASSWORD_INCORRECT, map.get("Reason"));
 		}finally{
 			prepareAndClean.cleanUser(userInfoPrepare);
 		}
@@ -111,8 +113,8 @@ public class LoginTest {
 		
 		Map<String,Object> map=userService.login(userName, password);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("USERNAME_NOT_EXIST", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.USERNAME_NOT_EXIST, map.get("Reason"));
 	}
 	
 }

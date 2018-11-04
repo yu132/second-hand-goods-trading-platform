@@ -1,4 +1,4 @@
-package se.stateEnum;
+package se.enumDefine.state;
 
 public enum State {
 	

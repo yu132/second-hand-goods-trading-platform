@@ -2,10 +2,10 @@ package se.service.user;
 
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.After;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +13,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
+import se.enumDefine.reason.Reason;
+import se.enumDefine.state.State;
 import se.model.UserInfo;
 import se.repositories.UserInfoRepository;
 import se.service.UserService;
@@ -47,7 +49,7 @@ public class RegisterTest {
 	public void testOK(){
 		try{
 			Map<String,Object> map=userService.register(userInfo);
-			Assert.assertEquals("SUCCESS", map.get("State"));
+			Assert.assertEquals(State.SUCCESS, map.get("State"));
 			
 			Example<UserInfo> userInfoExample = Example.of(userInfo);
 			Assert.assertTrue(userInfoRepository.exists(userInfoExample));
@@ -61,8 +63,8 @@ public class RegisterTest {
 		userInfo.setUserName(null);
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("USERNAME_IS_NULL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.USERNAME_IS_NULL, map.get("Reason"));
 	}
 	
 	@Test
@@ -70,8 +72,8 @@ public class RegisterTest {
 		userInfo.setUserName("ts");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("USERNAME_TOO_SHORT", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.USERNAME_TOO_SHORT, map.get("Reason"));
 	}
 	
 	@Test
@@ -79,8 +81,8 @@ public class RegisterTest {
 		userInfo.setUserName("veryveryloooooooooooooooooooooooooooooooooooong");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("USERNAME_TOO_LONG", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.USERNAME_TOO_LONG, map.get("Reason"));
 	}
 	
 	@Test
@@ -88,8 +90,8 @@ public class RegisterTest {
 		userInfo.setUserName("666666@a");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("USERNAME_ILLEAGAL_CHARACTER", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.USERNAME_ILLEAGAL_CHARACTER, map.get("Reason"));
 	}
 	
 	@Test
@@ -97,8 +99,8 @@ public class RegisterTest {
 		userInfo.setPassword(null);
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("PASSWORD_IS_NULL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.PASSWORD_IS_NULL, map.get("Reason"));
 	}
 	
 	@Test
@@ -106,8 +108,8 @@ public class RegisterTest {
 		userInfo.setPassword("ts");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("PASSWORD_TOO_SHORT", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.PASSWORD_TOO_SHORT, map.get("Reason"));
 	}
 	
 	@Test
@@ -115,8 +117,8 @@ public class RegisterTest {
 		userInfo.setPassword("veryveryloooooooooooooooooooooooooooooooooooong");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("PASSWORD_TOO_LONG", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.PASSWORD_TOO_LONG, map.get("Reason"));
 	}
 	
 	@Test
@@ -124,8 +126,8 @@ public class RegisterTest {
 		userInfo.setPassword("大肥羊66666666");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("PASSWORD_ILLEAGAL_CHARACTER", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.PASSWORD_ILLEAGAL_CHARACTER, map.get("Reason"));
 	}
 	
 	@Test
@@ -133,8 +135,8 @@ public class RegisterTest {
 		userInfo.setNickName(null);
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("NICKNAME_IS_NULL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.NICKNAME_IS_NULL, map.get("Reason"));
 	}
 	
 	@Test
@@ -142,8 +144,8 @@ public class RegisterTest {
 		userInfo.setNickName("s");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("NICKNAME_TOO_SHORT", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.NICKNAME_TOO_SHORT, map.get("Reason"));
 	}
 	
 	@Test
@@ -151,8 +153,8 @@ public class RegisterTest {
 		userInfo.setNickName("veryveryloooooooooooooooooooooooooooooooooooong");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("NICKNAME_TOO_LONG", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.NICKNAME_TOO_LONG, map.get("Reason"));
 	}
 	
 	@Test
@@ -160,8 +162,8 @@ public class RegisterTest {
 		userInfo.setEmail(null);
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("EMAIL_IS_NULL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.EMAIL_IS_NULL, map.get("Reason"));
 	}
 	
 	@Test
@@ -173,8 +175,8 @@ public class RegisterTest {
 				+ "oooooooooooooooooooooooooooooooooooooooong@qq.com");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("EMAIL_TOO_LONG", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.EMAIL_TOO_LONG, map.get("Reason"));
 	}
 	
 	@Test
@@ -182,8 +184,8 @@ public class RegisterTest {
 		userInfo.setEmail("asdjp12das");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("EMAIL_ILLEGAL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.EMAIL_ILLEGAL, map.get("Reason"));
 	}
 	
 	@Test
@@ -191,8 +193,8 @@ public class RegisterTest {
 		userInfo.setEmail("asdjp12das@e1231");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("EMAIL_ILLEGAL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.EMAIL_ILLEGAL, map.get("Reason"));
 	}
 	
 	@Test
@@ -200,8 +202,8 @@ public class RegisterTest {
 		userInfo.setPhoneNumber("1111111111111111111111111111111111111111111111111111111111111111");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("PHONE_NUMBER_TOO_LONG", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.PHONE_NUMBER_TOO_LONG, map.get("Reason"));
 	}
 	
 	@Test
@@ -209,8 +211,8 @@ public class RegisterTest {
 		userInfo.setPhoneNumber("15098796072111");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("PHONE_NUMBER_ILLEGAL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.PHONE_NUMBER_ILLEGAL, map.get("Reason"));
 	}
 	
 	@Test
@@ -218,8 +220,8 @@ public class RegisterTest {
 		userInfo.setPhoneNumber("15098a96072");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("PHONE_NUMBER_ILLEGAL", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.PHONE_NUMBER_ILLEGAL, map.get("Reason"));
 	}
 	
 	@Test
@@ -231,8 +233,8 @@ public class RegisterTest {
 				+ "oooooooooooooooooooooooooooooooooooooooong");
 		Map<String,Object> map=userService.register(userInfo);
 		
-		Assert.assertEquals("ERROR", map.get("State"));
-		Assert.assertEquals("ADDERSS_TOO_LONG", map.get("Reason"));
+		Assert.assertEquals(State.ERROR, map.get("State"));
+		Assert.assertEquals(Reason.ADDERSS_TOO_LONG, map.get("Reason"));
 	}
 
 	@Test
@@ -250,8 +252,8 @@ public class RegisterTest {
 			
 			Map<String,Object> map=userService.register(userInfo);
 			
-			Assert.assertEquals("ERROR", map.get("State"));
-			Assert.assertEquals("USERNAME_EXIST", map.get("Reason"));
+			Assert.assertEquals(State.ERROR, map.get("State"));
+			Assert.assertEquals(Reason.USERNAME_EXIST, map.get("Reason"));
 		}finally{
 			prepareAndClean.cleanUser(userInfoPrepare);
 		}
@@ -259,7 +261,9 @@ public class RegisterTest {
 	
 	@After
 	public void clean(){
-		prepareAndClean.cleanUser(userInfo);
+		try{
+			prepareAndClean.cleanUser(userInfo);
+		}catch (Exception e) {}
 	}
 	
 }

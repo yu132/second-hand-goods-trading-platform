@@ -7,10 +7,10 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.enumDefine.reason.Reason;
+import se.enumDefine.state.State;
 import se.model.UserInfo;
 import se.repositories.UserInfoRepository;
-import se.stateEnum.State;
-import se.reasonEnum.Reason;
 
 @Service
 public class UserServiceJudge {

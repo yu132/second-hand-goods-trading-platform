@@ -131,7 +131,7 @@ public class UserServiceJudge {
 	    return isMatch;
 	}
 	private boolean judgePasswordChar(String password){//!@#$%^&*(),<.>:;?~`-'+|"/=[]{}和数字、大小写字母、下划线、空格
-		String pattern = "(?:[a-z]|[A-Z]|_|[0-9]|!|@|#|\\$|%|\\^|&|\\*|\\(|\\)| |,|<|.|>|:|;|\\?|~|`|-|'|\\+|\\||\"|/|=|[|]|\\{|\\})+";
+		String pattern = "(?:[a-z]|[A-Z]|_|[0-9]|!|@|#|\\$|%|\\^|&|\\*|\\(|\\)| |,|<|\\.|>|:|;|\\?|~|`|-|'|\\+|\\||\"|/|=|[|]|\\{|\\})+";
 		boolean isMatch = Pattern.matches(pattern, password);
 	    return isMatch;
 	}

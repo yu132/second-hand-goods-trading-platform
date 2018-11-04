@@ -13,6 +13,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
+import se.enumDefine.UserState.UserState;
 import se.enumDefine.executeState.ExecuteState;
 import se.enumDefine.reason.Reason;
 import se.model.UserInfo;
@@ -54,6 +55,12 @@ public class RegisterTest {
 		
 		Example<UserInfo> userInfoExample = Example.of(userInfo);
 		Assert.assertTrue(userInfoRepository.exists(userInfoExample));
+		
+		Assert.assertEquals(new Double(0.0), userInfo.getBalance());
+		
+		Assert.assertEquals(UserState.NORMAL, userInfo.getState());
+		
+		Assert.assertNotNull(userInfo.getTime());
 	}
 	
 	@Test
@@ -62,10 +69,7 @@ public class RegisterTest {
 		Map<String,Object> map=userService.register(userInfo);
 		
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
-		Assert.assertEquals(Reason.USERNAME_IS_NULL, map.get("Reason"));
-		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertEquals(Reason.USER_INFO_IS_NULL, map.get("Reason"));
 	}
 
 	@Test

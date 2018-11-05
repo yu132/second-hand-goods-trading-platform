@@ -6,11 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import se.enumDefine.UserState.UserState;
 import se.enumDefine.executeState.ExecuteState;
 import se.enumDefine.reason.Reason;
 import se.model.UserInfo;
 import se.repositories.UserInfoRepository;
 import se.service.judge.UserServiceJudge;
+import se.service.util.DateUtil;
 
 @Service
 public class UserService {
@@ -20,6 +22,9 @@ public class UserService {
 	
 	@Autowired
 	private UserServiceJudge userServiceJudge;
+	
+	@Autowired
+	private DateUtil dateUtil;
 	
 	public Map<String,Object> login(String userName,String password){
 		
@@ -90,6 +95,8 @@ public class UserService {
 			return result;
 		}else{
 			userInfo.setBalance(0.0);
+			userInfo.setState(UserState.NORMAL.toString());
+			userInfo.setRegisterTime(dateUtil.getCurrentDate());
 			userInfoRepository.save(userInfo);
 			return result;
 		}

@@ -64,7 +64,7 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(GoodsState.WAIT_CHECK, goods.getState());
 		
-		Assert.assertNotNull(goods.getTime());
+		Assert.assertNotNull(goods.getCommitTime());
 		
 		Example<Goods> example=Example.of(goods);
 		Assert.assertTrue(goodssRepository.exists(example));

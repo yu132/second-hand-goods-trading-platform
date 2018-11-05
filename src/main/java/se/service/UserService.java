@@ -57,7 +57,13 @@ public class UserService {
 	
 	public Map<String,Object> register(UserInfo userInfo){
 		
+			
 		Map<String,Object> result=new HashMap<>();
+		if(userInfo==null){
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason", Reason.USER_INFO_IS_NULL);
+			return result;
+		}
 		
 		String userName=userInfo.getUserName();
 		result=userServiceJudge.judgeUserName(userName);

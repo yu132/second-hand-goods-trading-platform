@@ -60,7 +60,7 @@ public class RegisterTest {
 		
 		Assert.assertEquals(UserState.NORMAL, userInfo.getState());
 		
-		Assert.assertNotNull(userInfo.getTime());
+		Assert.assertNotNull(userInfo.getRegisterTime());
 	}
 	
 	@Test

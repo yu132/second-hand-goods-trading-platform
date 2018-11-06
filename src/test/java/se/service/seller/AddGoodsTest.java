@@ -130,7 +130,18 @@ public class AddGoodsTest {
 	
 	@Test
 	public void testGoodsNameIsNull(){
+		Integer uid=user.getId();
 		
+		goods.setGoodsName(null);
+		
+		Map<String, Object> res=sellerService.addGoods(uid, goods);
+		
+		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
+		
+		Assert.assertEquals(Reason.GOODS_NAME_IS_NULL, res.get("Reson"));
+		
+		Example<Goods> example=Example.of(goods);
+		Assert.assertFalse(goodssRepository.exists(example));
 	}
 	
 	@Test
@@ -159,7 +170,18 @@ public class AddGoodsTest {
 	
 	@Test
 	public void testPriceIsNull(){
+		Integer uid=user.getId();
 		
+		goods.setPrice(null);
+		
+		Map<String, Object> res=sellerService.addGoods(uid, goods);
+		
+		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
+		
+		Assert.assertEquals(Reason.PRICE_IS_NULL, res.get("Reson"));
+		
+		Example<Goods> example=Example.of(goods);
+		Assert.assertFalse(goodssRepository.exists(example));
 	}
 	
 	@Test
@@ -169,27 +191,90 @@ public class AddGoodsTest {
 	
 	@Test
 	public void testAmountIsNull(){
+		Integer uid=user.getId();
 		
+		goods.setAmount(null);
+		
+		Map<String, Object> res=sellerService.addGoods(uid, goods);
+		
+		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
+		
+		Assert.assertEquals(Reason.AMOUNT_IS_NULL, res.get("Reson"));
+		
+		Example<Goods> example=Example.of(goods);
+		Assert.assertFalse(goodssRepository.exists(example));
 	}
 	
 	@Test
 	public void testAmountNegative(){
+		Integer uid=user.getId();
 		
+		goods.setAmount(-10);
+		
+		Map<String, Object> res=sellerService.addGoods(uid, goods);
+		
+		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
+		
+		Assert.assertEquals(Reason.AMOUNT_IS_NEGATIVE_OR_ZERO, res.get("Reson"));
+		
+		Example<Goods> example=Example.of(goods);
+		Assert.assertFalse(goodssRepository.exists(example));
 	}
 	
 	@Test
 	public void testAmountZero(){
+		Integer uid=user.getId();
 		
+		goods.setAmount(0);
+		
+		Map<String, Object> res=sellerService.addGoods(uid, goods);
+		
+		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
+		
+		Assert.assertEquals(Reason.AMOUNT_IS_NEGATIVE_OR_ZERO, res.get("Reson"));
+		
+		Example<Goods> example=Example.of(goods);
+		Assert.assertFalse(goodssRepository.exists(example));
 	}
 	
 	@Test
 	public void testDescriptionTooLong(){
+		StringBuilder sb=new StringBuilder(300);
 		
+		for(int i=0;i<300/4;i++){
+			sb.append("描述测试");
+		}
+		
+		String description=sb.toString();
+		
+		Integer uid=user.getId();
+		
+		goods.setDescription(description);
+		
+		Map<String, Object> res=sellerService.addGoods(uid, goods);
+		
+		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
+		
+		Assert.assertEquals(Reason.DESCRIPTION_TOO_LONG, res.get("Reson"));
+		
+		Example<Goods> example=Example.of(goods);
+		Assert.assertFalse(goodssRepository.exists(example));
 	}
 	
 	@Test
 	public void testEmailRemindIsNull(){
+		Integer uid=user.getId();
 		
+		goods.setEmailRemind(null);
+		
+		Map<String, Object> res=sellerService.addGoods(uid, goods);
+		
+		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
+		
+		Assert.assertEquals(Reason.EMAIL_REMIND_IS_NULL, res.get("Reson"));
+		
+		Example<Goods> example=Example.of(goods);
+		Assert.assertFalse(goodssRepository.exists(example));
 	}
 	
 	@After

@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
@@ -23,16 +22,17 @@ import se.util.PrepareAndClean;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
+
 public class RegisterTest {
 	
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
-	private PrepareAndClean prepareAndClean;
+	private UserInfoRepository userInfoRepository;
 	
 	@Autowired
-	private UserInfoRepository userInfoRepository;
+	private PrepareAndClean prepareAndClean;
 	
 	private UserInfo userInfo;
 	
@@ -53,14 +53,15 @@ public class RegisterTest {
 		Map<String,Object> map=userService.register(userInfo);
 		Assert.assertEquals(ExecuteState.SUCCESS, map.get("State"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertTrue(userInfoRepository.exists(userInfoExample));
-		
 		Assert.assertEquals(new Double(0.0), userInfo.getBalance());
 		
-		Assert.assertEquals(UserState.NORMAL, userInfo.getState());
+		Assert.assertEquals(UserState.NORMAL.toString(), userInfo.getState());
 		
 		Assert.assertNotNull(userInfo.getRegisterTime());
+		
+		UserInfo getBack=userInfoRepository.getOne(userInfo.getId());
+		
+		Assert.assertNotNull(getBack);
 	}
 	
 	@Test
@@ -70,6 +71,7 @@ public class RegisterTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.USER_INFO_IS_NULL, map.get("Reason"));
+		
 	}
 
 	@Test
@@ -80,8 +82,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.USERNAME_IS_NULL, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -92,8 +93,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.USERNAME_TOO_SHORT, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -104,8 +104,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.USERNAME_TOO_LONG, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -116,8 +115,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.USERNAME_ILLEAGAL_CHARACTER, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -128,8 +126,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.PASSWORD_IS_NULL, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -140,8 +137,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.PASSWORD_TOO_SHORT, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -152,8 +148,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.PASSWORD_TOO_LONG, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -164,8 +159,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.PASSWORD_ILLEAGAL_CHARACTER, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -176,8 +170,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.NICKNAME_IS_NULL, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -188,8 +181,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.NICKNAME_TOO_SHORT, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -200,8 +192,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.NICKNAME_TOO_LONG, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -212,8 +203,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.EMAIL_IS_NULL, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -228,20 +218,18 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.EMAIL_TOO_LONG, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
 	public void testEmailIllegal1(){
-		userInfo.setEmail("asdjp12das");
+		userInfo.setEmail("12345");
 		Map<String,Object> map=userService.register(userInfo);
 		
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.EMAIL_ILLEGAL, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+	//	Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -252,8 +240,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.EMAIL_ILLEGAL, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -264,8 +251,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.PHONE_NUMBER_TOO_LONG, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -276,8 +262,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.PHONE_NUMBER_ILLEGAL, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -288,8 +273,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.PHONE_NUMBER_ILLEGAL, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 	
 	@Test
@@ -304,8 +288,7 @@ public class RegisterTest {
 		Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 		Assert.assertEquals(Reason.ADDERSS_TOO_LONG, map.get("Reason"));
 		
-		Example<UserInfo> userInfoExample = Example.of(userInfo);
-		Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+		Assert.assertNull(userInfo.getId());
 	}
 
 	@Test
@@ -327,8 +310,7 @@ public class RegisterTest {
 			Assert.assertEquals(ExecuteState.ERROR, map.get("State"));
 			Assert.assertEquals(Reason.USERNAME_EXIST, map.get("Reason"));
 			
-			Example<UserInfo> userInfoExample = Example.of(userInfo);
-			Assert.assertFalse(userInfoRepository.exists(userInfoExample));
+			Assert.assertNull(userInfo.getId());
 		}finally{
 			prepareAndClean.cleanUser(userInfoPrepare);
 		}

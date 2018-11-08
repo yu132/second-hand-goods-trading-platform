@@ -45,7 +45,7 @@ public class PrepareAndClean {
 	
 	public void cleanDefaultUser(){
 		if(DefaultUserExist){
-			userInfoRepository.delete(DEFAULT_USER);
+			userInfoRepository.deleteById(DEFAULT_USER.getId());
 			DefaultUserExist=false;
 		}
 	}

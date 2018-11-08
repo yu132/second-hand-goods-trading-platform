@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
@@ -18,7 +17,7 @@ import se.enumDefine.goodsState.GoodsState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.model.UserInfo;
-import se.repositories.GoodsRepository;
+import se.repositories.UserInfoRepository;
 import se.service.SellerService;
 import se.util.PrepareAndClean;
 
@@ -33,17 +32,33 @@ public class AddGoodsTest {
 	private PrepareAndClean prepareAndClean;
 	
 	@Autowired
-	private GoodsRepository goodssRepository;
+	private UserInfoRepository userInfoRepository;
 	
 	private UserInfo user;
 	
 	private Goods goods;
 	
+	private final UserInfo DEFAULT_USER;
+	
+	{
+		DEFAULT_USER=new UserInfo();
+		DEFAULT_USER.setUserName("Test_User_Name123");
+		DEFAULT_USER.setPassword("#Test^(P@sswOrd!)+");
+		DEFAULT_USER.setNickName("TestNickName");
+		DEFAULT_USER.setEmail("test@se.com");
+		DEFAULT_USER.setPhoneNumber("18820765428");
+		DEFAULT_USER.setAddress("山东省济南市高新区舜华路1500号山东大学软件园校区2号宿舍楼229宿舍");
+	}
+
+	
 	@Before
 	public void prepare(){
-		user=prepareAndClean.prepareDefaultUser();
+		
+		user=userInfoRepository.save(DEFAULT_USER);
 		
 		goods=new Goods();
+		
+		goods.setSellerId(user.getId());
 		
 		goods.setGoodsName("肥羊");
 		goods.setPrice(111.11);
@@ -62,12 +77,11 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(uid, goods.getSellerId());
 		
-		Assert.assertEquals(GoodsState.WAIT_CHECK, goods.getState());
+		Assert.assertEquals(GoodsState.WAIT_CHECK.toString(), goods.getState());
 		
 		Assert.assertNotNull(goods.getCommitTime());
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertTrue(goodssRepository.exists(example));
+		Assert.assertNotNull(goods.getId());
 	}
 	
 	@Test
@@ -81,6 +95,8 @@ public class AddGoodsTest {
 			goods1.setDescription("大肥羊");
 			goods1.setEmailRemind(Boolean.TRUE);
 			
+			goods1.setSellerId(user.getId());
+			
 			prepareAndClean.prepareGoods(goods1);
 			
 			Integer uid=user.getId();
@@ -89,10 +105,9 @@ public class AddGoodsTest {
 			
 			Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 			
-			Assert.assertEquals(Reason.GOODS_EXIST, res.get("Reson"));
+			Assert.assertEquals(Reason.GOODS_EXIST, res.get("Reason"));
 			
-			Example<Goods> example=Example.of(goods);
-			Assert.assertFalse(goodssRepository.exists(example));
+			Assert.assertNull(goods.getId());
 		}finally{
 			prepareAndClean.cleanGoods(goods1);
 		}
@@ -106,10 +121,9 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.USER_ID_IS_NULL, res.get("Reson"));
+		Assert.assertEquals(Reason.USER_ID_IS_NULL, res.get("Reason"));
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertNull(goods.getId());
 	}
 	
 	@Test
@@ -122,10 +136,7 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.GOODS_IS_NULL, res.get("Reson"));
-		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertEquals(Reason.GOODS_IS_NULL, res.get("Reason"));
 	}
 	
 	@Test
@@ -138,10 +149,9 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.GOODS_NAME_IS_NULL, res.get("Reson"));
+		Assert.assertEquals(Reason.GOODS_NAME_IS_NULL, res.get("Reason"));
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertNull(goods.getId());
 	}
 	
 	@Test
@@ -162,10 +172,9 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.GOODS_NAME_TOO_LONG, res.get("Reson"));
+		Assert.assertEquals(Reason.GOODS_NAME_TOO_LONG, res.get("Reason"));
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertNull(goods.getId());
 	}
 	
 	@Test
@@ -178,15 +187,24 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.PRICE_IS_NULL, res.get("Reson"));
+		Assert.assertEquals(Reason.PRICE_IS_NULL, res.get("Reason"));
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertNull(goods.getId());
 	}
 	
 	@Test
 	public void testPriceNegative(){
+		Integer uid=user.getId();
 		
+		goods.setPrice(-1.0);
+		
+		Map<String, Object> res=sellerService.addGoods(uid, goods);
+		
+		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
+		
+		Assert.assertEquals(Reason.PRICE_IS_NEGATIVE_OR_ZERO, res.get("Reason"));
+		
+		Assert.assertNull(goods.getId());
 	}
 	
 	@Test
@@ -199,10 +217,9 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.AMOUNT_IS_NULL, res.get("Reson"));
+		Assert.assertEquals(Reason.AMOUNT_IS_NULL, res.get("Reason"));
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertNull(goods.getId());
 	}
 	
 	@Test
@@ -215,10 +232,9 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.AMOUNT_IS_NEGATIVE_OR_ZERO, res.get("Reson"));
+		Assert.assertEquals(Reason.AMOUNT_IS_NEGATIVE_OR_ZERO, res.get("Reason"));
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertNull(goods.getId());
 	}
 	
 	@Test
@@ -231,10 +247,9 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.AMOUNT_IS_NEGATIVE_OR_ZERO, res.get("Reson"));
+		Assert.assertEquals(Reason.AMOUNT_IS_NEGATIVE_OR_ZERO, res.get("Reason"));
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertNull(goods.getId());
 	}
 	
 	@Test
@@ -255,10 +270,9 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.DESCRIPTION_TOO_LONG, res.get("Reson"));
+		Assert.assertEquals(Reason.DESCRIPTION_TOO_LONG, res.get("Reason"));
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertNull(goods.getId());
 	}
 	
 	@Test
@@ -271,18 +285,18 @@ public class AddGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.EMAIL_REMIND_IS_NULL, res.get("Reson"));
+		Assert.assertEquals(Reason.EMAIL_REMIND_IS_NULL, res.get("Reason"));
 		
-		Example<Goods> example=Example.of(goods);
-		Assert.assertFalse(goodssRepository.exists(example));
+		Assert.assertNull(goods.getId());
 	}
 	
 	@After
 	public void clean(){
-		prepareAndClean.cleanDefaultUser();
 		try{
 			prepareAndClean.cleanGoods(goods);
 		}catch(Exception e){}
+		
+		userInfoRepository.delete(DEFAULT_USER);
 	}
-
+	
 }

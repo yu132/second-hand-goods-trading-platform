@@ -17,7 +17,6 @@ import se.enumDefine.goodsState.GoodsState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.model.UserInfo;
-import se.repositories.UserInfoRepository;
 import se.service.SellerService;
 import se.util.PrepareAndClean;
 
@@ -30,9 +29,6 @@ public class AddGoodsTest {
 	
 	@Autowired
 	private PrepareAndClean prepareAndClean;
-	
-	@Autowired
-	private UserInfoRepository userInfoRepository;
 	
 	private UserInfo user;
 	

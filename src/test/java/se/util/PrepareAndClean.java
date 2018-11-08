@@ -10,6 +10,9 @@ import se.repositories.UserInfoRepository;
 
 @Service
 public class PrepareAndClean {
+	
+	@Autowired
+	private UserInfoRepository userInfoRepository;
 
 	private UserInfo DEFAULT_USER;
 	private boolean DefaultUserExist;
@@ -22,17 +25,6 @@ public class PrepareAndClean {
 		DEFAULT_USER.setEmail("test@se.com");
 		DEFAULT_USER.setPhoneNumber("18820765428");
 		DEFAULT_USER.setAddress("山东省济南市高新区舜华路1500号山东大学软件园校区2号宿舍楼229宿舍");
-	}
-	
-	@Autowired
-	private UserInfoRepository userInfoRepository;
-	
-	public void prepareUser(UserInfo userInfo){
-		userInfoRepository.save(userInfo);
-	}
-	
-	public void cleanUser(UserInfo userInfo){
-		userInfoRepository.delete(userInfo);
 	}
 	
 	public UserInfo prepareDefaultUser(){
@@ -48,6 +40,44 @@ public class PrepareAndClean {
 			userInfoRepository.deleteById(DEFAULT_USER.getId());
 			DefaultUserExist=false;
 		}
+	}
+	
+	
+	private UserInfo DEFAULT_USER2;
+	private boolean DefaultUserExist2;
+	
+	{
+		DEFAULT_USER2=new UserInfo();
+		DEFAULT_USER2.setUserName("Test_User_Name123");
+		DEFAULT_USER2.setPassword("#Test^(P@sswOrd!)+");
+		DEFAULT_USER2.setNickName("TestNickName");
+		DEFAULT_USER2.setEmail("test@se.com");
+		DEFAULT_USER2.setPhoneNumber("18820765428");
+		DEFAULT_USER2.setAddress("山东省济南市高新区舜华路1500号山东大学软件园校区2号宿舍楼229宿舍");
+	}
+	
+	public UserInfo prepareDefaultUser2(){
+		if(!DefaultUserExist2){
+			DEFAULT_USER2=userInfoRepository.save(DEFAULT_USER);
+			DefaultUserExist2=true;
+		}
+		return DEFAULT_USER2;
+	}
+	
+	public void cleanDefaultUser2(){
+		if(DefaultUserExist2){
+			userInfoRepository.deleteById(DEFAULT_USER2.getId());
+			DefaultUserExist2=false;
+		}
+	}
+	
+	
+	public void prepareUser(UserInfo userInfo){
+		userInfoRepository.save(userInfo);
+	}
+	
+	public void cleanUser(UserInfo userInfo){
+		userInfoRepository.delete(userInfo);
 	}
 	
 	@Autowired

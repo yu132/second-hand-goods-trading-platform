@@ -38,23 +38,10 @@ public class AddGoodsTest {
 	
 	private Goods goods;
 	
-	private final UserInfo DEFAULT_USER;
-	
-	{
-		DEFAULT_USER=new UserInfo();
-		DEFAULT_USER.setUserName("Test_User_Name123");
-		DEFAULT_USER.setPassword("#Test^(P@sswOrd!)+");
-		DEFAULT_USER.setNickName("TestNickName");
-		DEFAULT_USER.setEmail("test@se.com");
-		DEFAULT_USER.setPhoneNumber("18820765428");
-		DEFAULT_USER.setAddress("山东省济南市高新区舜华路1500号山东大学软件园校区2号宿舍楼229宿舍");
-	}
-
-	
 	@Before
 	public void prepare(){
 		
-		user=userInfoRepository.save(DEFAULT_USER);
+		user=prepareAndClean.prepareDefaultUser();
 		
 		goods=new Goods();
 		
@@ -296,7 +283,7 @@ public class AddGoodsTest {
 			prepareAndClean.cleanGoods(goods);
 		}catch(Exception e){}
 		
-		userInfoRepository.delete(DEFAULT_USER);
+		prepareAndClean.cleanDefaultUser();
 	}
 	
 }

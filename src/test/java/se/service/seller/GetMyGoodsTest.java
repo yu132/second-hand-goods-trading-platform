@@ -79,10 +79,10 @@ public class GetMyGoodsTest {
 	
 	@After
 	public void clean(){
-		prepareAndClean.cleanDefaultUser();
-		
 		for(int i=0;i<AMOUNT_OF_GOODS_EACH_PAGE*10-5;i++){
 			prepareAndClean.cleanGoods(glist.get(i));
 		}
+		
+		prepareAndClean.cleanDefaultUser();
 	}
 }

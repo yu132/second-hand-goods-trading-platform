@@ -11,7 +11,7 @@ import se.repositories.UserInfoRepository;
 @Service
 public class PrepareAndClean {
 
-	private final UserInfo DEFAULT_USER;
+	private UserInfo DEFAULT_USER;
 	private boolean DefaultUserExist;
 	
 	{
@@ -37,7 +37,7 @@ public class PrepareAndClean {
 	
 	public UserInfo prepareDefaultUser(){
 		if(!DefaultUserExist){
-			userInfoRepository.save(DEFAULT_USER);
+			DEFAULT_USER=userInfoRepository.save(DEFAULT_USER);
 			DefaultUserExist=true;
 		}
 		return DEFAULT_USER;

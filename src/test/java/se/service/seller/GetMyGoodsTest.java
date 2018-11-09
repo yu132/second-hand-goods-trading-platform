@@ -44,8 +44,6 @@ public class GetMyGoodsTest {
 		for(int i=0;i<AMOUNT_OF_GOODS_EACH_PAGE*10-5;i++){
 			Goods goods=new Goods();
 			
-			goods.setSellerId(user.getId());
-			
 			goods.setGoodsName("肥羊"+i);
 			goods.setPrice(100.0+i);
 			goods.setAmount(i);

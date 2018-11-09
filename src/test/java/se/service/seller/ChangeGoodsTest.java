@@ -77,6 +77,17 @@ public class ChangeGoodsTest {
 	}
 	
 	@Test
+	public void testGoodsNotExist(){
+		goodsToChange.setId(0);
+		
+		Map<String,Object> res=sellerService.changeGoods(user2.getId(), goodsToChange);
+		
+		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
+		
+		Assert.assertEquals(Reason.GOODS_NOT_EXIST,res.get("Reason"));
+	}
+	
+	@Test
 	public void testExist(){
 		Goods goods1=new Goods();
 		

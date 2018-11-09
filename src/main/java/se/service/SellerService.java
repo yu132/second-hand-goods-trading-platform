@@ -118,7 +118,7 @@ public class SellerService {
 	 * @param goodNeedDelete
 	 * @return
 	 */
-	public Map<String,Object> deleteGoods(Integer userId,Goods goodsNeedDelete){
+	public Map<String,Object> deleteGoods(Integer userId,Integer goodsNeedDeleteId){
 		//TODO
 		
 		return null;

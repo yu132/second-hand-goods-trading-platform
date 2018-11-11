@@ -24,6 +24,9 @@ import se.util.PrepareAndClean;
 @SpringBootTest(classes = Application.class)
 public class DeleteGoodsTest {
 	
+	//删除物品，未测试物品没找到的情况
+	
+	
 	@Autowired
 	private SellerService sellerService;
 	

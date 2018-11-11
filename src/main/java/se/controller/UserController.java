@@ -7,10 +7,11 @@ import se.model.UserInfo;
 import se.service.UserService;
 
 @RestController
-@RequestMapping("/secure/lessons")
+@RequestMapping("/user")
 public class UserController {
 
 	private UserService userSrvice;
+    @RequestMapping(value = "login")
 	public Object login(String userName,String password){
 		//TODO
 		return userSrvice.login(userName, password);

@@ -24,6 +24,10 @@ import se.util.PrepareAndClean;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 public class GetMyGoodsTest {
+	
+	//getmygoodspage未测试
+	//126行原因有误
+	
 
 	@Autowired
 	private SellerService sellerService;

@@ -42,13 +42,16 @@ public class ChangeGoodsTest {
 		
 		user2=prepareAndClean.prepareDefaultUser2();
 		
+		goodsExist=new Goods();
+		goodsToChange=new Goods();
+		
 		goodsExist.setGoodsName("肥羊");
 		goodsExist.setPrice(100.0);
 		goodsExist.setAmount(1);
 		goodsExist.setDescription("大肥羊: weight="+40+"kg");
 		goodsExist.setEmailRemind(Boolean.TRUE);
 		
-		sellerService.changeGoods(user.getId(), goodsExist);
+		sellerService.addGoods(user.getId(), goodsExist);
 		
 		goodsToChange.setId(goodsExist.getId());
 		
@@ -138,7 +141,7 @@ public class ChangeGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.GOODS_ID_IS_NULL, res.get("Reason"));
+		Assert.assertEquals(Reason.GOODS_IS_NULL, res.get("Reason"));
 	}
 	
 	@Test
@@ -151,7 +154,7 @@ public class ChangeGoodsTest {
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.USER_ID_IS_NULL, res.get("Reason"));
+		Assert.assertEquals(Reason.GOODS_ID_IS_NULL, res.get("Reason"));
 		
 		Assert.assertNull(goodsToChange.getId());
 	}

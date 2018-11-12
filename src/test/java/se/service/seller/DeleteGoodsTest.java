@@ -47,13 +47,15 @@ public class DeleteGoodsTest {
 		
 		user2=prepareAndClean.prepareDefaultUser2();
 		
+		goodsToDelete=new Goods();
+		
 		goodsToDelete.setGoodsName("肥羊");
 		goodsToDelete.setPrice(100.0);
 		goodsToDelete.setAmount(1);
 		goodsToDelete.setDescription("大肥羊: weight="+40+"kg");
 		goodsToDelete.setEmailRemind(Boolean.TRUE);
 		
-		sellerService.changeGoods(user.getId(), goodsToDelete);
+		sellerService.addGoods(user.getId(), goodsToDelete);
 	}
 	
 	@Test

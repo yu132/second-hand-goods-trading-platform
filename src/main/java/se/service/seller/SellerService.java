@@ -157,7 +157,11 @@ public class SellerService {
 			result.put("Reason",Reason.USER_ID_IS_NULL);
 			return result;
 		}
-		if(newGoods.getId()==null) {
+		if(newGoods==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.GOODS_IS_NULL);
+			return result;
+		}else if(newGoods.getId()==null) {
 			result.put("State", ExecuteState.ERROR);
 			result.put("Reason",Reason.GOODS_ID_IS_NULL);
 			return result;

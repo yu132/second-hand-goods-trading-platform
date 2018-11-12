@@ -31,7 +31,6 @@ public class SellerService {
 	public final static int AMOUNT_OF_GOODS_EACH_PAGE=10;
 
 	public Map<String,Object> addGoods(Integer userId,Goods goods){
-		//TODO
 		Map<String,Object> result=new HashMap<>();
 		if(userId==null) {
 			result.put("State", ExecuteState.ERROR);
@@ -98,7 +97,6 @@ public class SellerService {
 	}
 	
 	public Map<String,Object> getMyGoods(Integer userId,int page){
-		//TODO
 		Map<String,Object> result=new HashMap<>();
 		Map<String,Object> getMyGoodsPageResult=new HashMap<>();
 
@@ -129,7 +127,6 @@ public class SellerService {
 	}
 	
 	public Map<String,Object> getMyGoodsPage(Integer userId){
-		//TODO
 		Map<String,Object> result=new HashMap<>();
 		if(userId==null) {
 			result.put("State", ExecuteState.ERROR);
@@ -153,7 +150,37 @@ public class SellerService {
 	
 	public Map<String,Object> changeGoods(Integer userId,Goods newGoods){
 		//TODO
-		
+		Map<String,Object> result=new HashMap<>();
+
+		if(userId==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.USER_ID_IS_NULL);
+			return result;
+		}
+		if(newGoods.getId()==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.GOODS_ID_IS_NULL);
+			return result;
+		}
+		Goods goods=goodsRepository.getOne(newGoods.getId());
+		if(goods==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.GOODS_NOT_EXIST);
+			return result;
+		}
+		if(goods.getSellerId()!=userId) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.USER_AUTH_ILLEGAL);
+			return result;
+		}
+		Goods goods2=goodsRepository.findBySellerIdAndGoodsName(userId, newGoods.getGoodsName());
+		if(goods2!=null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.GOODS_EXIST);
+			return result;
+		}
+
+
 		return null;
 	}
 	
@@ -164,7 +191,6 @@ public class SellerService {
 	 * @return
 	 */
 	public Map<String,Object> deleteGoods(Integer userId,Integer goodsNeedDeleteId){
-		//TODO
 		Map<String,Object> result=new HashMap<>();
 
 		if(userId==null) {

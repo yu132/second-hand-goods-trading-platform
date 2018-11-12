@@ -74,7 +74,7 @@ public class GetGoodsPageTest {
 		
 		Assert.assertEquals(ExecuteState.SUCCESS, res.get("State"));
 		
-		Assert.assertEquals(10, res.get("PageNum"));
+		Assert.assertEquals((long)10, res.get("PageNum"));
 	}
 	
 	@Test

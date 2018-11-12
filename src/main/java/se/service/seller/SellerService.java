@@ -14,6 +14,7 @@ import se.enumDefine.goodsState.GoodsState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.repositories.GoodsRepository;
+import se.repositories.UserInfoRepository;
 import se.service.util.DateUtil;
 
 
@@ -24,6 +25,9 @@ public class SellerService {
 	
 	@Autowired
 	private DateUtil dateUtil;
+	
+	@Autowired
+	private UserInfoRepository userInfoRepository;
 	
 	/**
 	 * 每页货品的数量
@@ -133,12 +137,12 @@ public class SellerService {
 			result.put("Reason",Reason.USER_ID_IS_NULL);
 			return result;
 		}
-		if(goodsRepository.findBySellerId(userId)==null) {
+		if(userInfoRepository.getOne(userId)==null) {
 			result.put("State", ExecuteState.ERROR);
-			result.put("Reason",null);
+			result.put("Reason",Reason.USERNAME_NOT_EXIST);
 			return result;
 		}else {
-			Long goodsNum=goodsRepository.countBySellerId(userId);
+			long goodsNum=goodsRepository.countBySellerId(userId);
 			Long pageNum=goodsNum/AMOUNT_OF_GOODS_EACH_PAGE;
 			if(pageNum%AMOUNT_OF_GOODS_EACH_PAGE!=0)
 				pageNum++;

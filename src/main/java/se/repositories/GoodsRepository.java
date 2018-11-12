@@ -12,6 +12,6 @@ import se.model.Goods;
 public interface GoodsRepository extends CrudRepository<Goods, Integer>, JpaRepository<Goods, Integer> {
 	public Goods findBySellerIdAndGoodsName(Integer sellerId,String goodsName);
 	public Goods findBySellerId(Integer sellerId);
-	public Long countBySellerId(Integer sellerId);
+	public long countBySellerId(Integer sellerId);
 	public Page<Goods> findBySellerIdOrderByCommitTimeDesc(Integer sellerId,Pageable pageable);
 }

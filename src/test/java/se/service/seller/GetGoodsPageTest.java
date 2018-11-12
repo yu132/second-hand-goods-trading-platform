@@ -22,8 +22,8 @@ import se.util.PrepareAndClean;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class GetMyGoodsTest {
-	
+public class GetGoodsPageTest {
+
 	@Autowired
 	private SellerService sellerService;
 	
@@ -49,7 +49,7 @@ public class GetMyGoodsTest {
 			goods.setDescription("大肥羊: weight="+(i+40)+"kg");
 			goods.setEmailRemind(Boolean.TRUE);
 			
-			sellerService.addGoods(user.getId(), goods);
+			Map<String,Object> res=sellerService.addGoods(user.getId(), goods);
 			
 			glist.add(goods);
 			
@@ -69,69 +69,21 @@ public class GetMyGoodsTest {
 	}
 	
 	@Test
-	public void testOK(){
-		//前9页，每页 AMOUNT_OF_GOODS_EACH_PAGE 个
-		for(int i=1;i<=9;i++){
-			Map<String,Object> res=sellerService.getMyGoods(user.getId(), i);
-			
-			Assert.assertEquals(ExecuteState.SUCCESS,res.get("State"));
-			
-			@SuppressWarnings("unchecked")
-			List<Goods> goods=(List<Goods>) res.get("GoodsList");
-			
-			Assert.assertEquals(AMOUNT_OF_GOODS_EACH_PAGE, goods.size());
-			
-			for(int j=0;j<AMOUNT_OF_GOODS_EACH_PAGE;j++){
-				Assert.assertTrue(glist.get((i-1)*AMOUNT_OF_GOODS_EACH_PAGE+j).equals(goods.get(j)));
-			}
-		}
+	public void testOk(){
+		Map<String,Object> res=sellerService.getMyGoodsPage(user.getId());
 		
-		//最后一页，只有AMOUNT_OF_GOODS_EACH_PAGE-5个
-		Map<String,Object> res=sellerService.getMyGoods(user.getId(), 10);
+		Assert.assertEquals(ExecuteState.SUCCESS, res.get("State"));
 		
-		Assert.assertEquals(ExecuteState.SUCCESS,res.get("State"));
-		
-		@SuppressWarnings("unchecked")
-		List<Goods> goods=(List<Goods>) res.get("GoodsList");
-		
-		Assert.assertEquals(AMOUNT_OF_GOODS_EACH_PAGE-5, goods.size());
-		
-		for(int j=0;j<AMOUNT_OF_GOODS_EACH_PAGE-5;j++){
-			Assert.assertTrue(glist.get(9*AMOUNT_OF_GOODS_EACH_PAGE+j).equals(goods.get(j)));
-		}
-	}
-	
-	@Test
-	public void testPageOutOfBound(){
-		Map<String,Object> res=sellerService.getMyGoods(user.getId(), 11);
-		
-		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
-		
-		Assert.assertEquals(Reason.GOODS_PAGE_OUT_OF_BOUNDS,res.get("Reason"));
-		
-		Assert.assertNull(res.get("GoodsList"));
+		Assert.assertEquals(10, res.get("PageNum"));
 	}
 	
 	@Test
 	public void testUserIdIsNull(){
-		Map<String,Object> res=sellerService.getMyGoods(null, 1);
+		Map<String,Object> res=sellerService.getMyGoodsPage(null);
 		
-		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
+		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		
-		Assert.assertEquals(Reason.USER_ID_IS_NULL,res.get("Reason"));
-		
-		Assert.assertNull(res.get("GoodsList"));
-	}
-	
-	@Test
-	public void testPageIllegal(){
-		Map<String,Object> res=sellerService.getMyGoods(user.getId(), -1);
-		
-		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
-		
-		Assert.assertEquals(Reason.GOODS_PAGE_IS_NEGATIVE_OR_ZERO,res.get("Reason"));
-		
-		Assert.assertNull(res.get("GoodsList"));
+		Assert.assertEquals(Reason.USER_ID_IS_NULL, res.get("Reason"));
 	}
 	
 	@After
@@ -142,4 +94,5 @@ public class GetMyGoodsTest {
 		
 		prepareAndClean.cleanDefaultUser();
 	}
+	
 }

@@ -179,9 +179,48 @@ public class SellerService {
 			result.put("Reason",Reason.GOODS_EXIST);
 			return result;
 		}
-
-
-		return null;
+		if(newGoods.getGoodsName()==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.GOODS_NAME_IS_NULL);
+			return result;
+		}else if(newGoods.getGoodsName().length()>255) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.GOODS_NAME_TOO_LONG);
+			return result;
+		}
+		if(newGoods.getPrice()==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.PRICE_IS_NULL);
+			return result;
+		}else if(newGoods.getPrice()<=0) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.PRICE_IS_NEGATIVE_OR_ZERO);
+			return result;
+		}
+		if(newGoods.getAmount()==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.AMOUNT_IS_NULL);
+			return result;
+		}else if(newGoods.getAmount()<=0) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.AMOUNT_IS_NEGATIVE_OR_ZERO);
+			return result;
+		}
+		if(newGoods.getDescription().length()>255) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.DESCRIPTION_TOO_LONG);
+			return result;
+		}else {
+			goods.setCommitTime(dateUtil.getCurrentDate());
+			goods.setAmount(newGoods.getAmount());
+			goods.setDescription(newGoods.getDescription());
+			goods.setGoodsName(newGoods.getGoodsName());
+			goods.setPrice(newGoods.getPrice());
+			goodsRepository.saveAndFlush(goods);
+			
+			result.put("State", ExecuteState.SUCCESS);
+			return result;
+		}
 	}
 	
 	/**

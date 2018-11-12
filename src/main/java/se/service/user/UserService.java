@@ -1,4 +1,4 @@
-package se.service;
+package se.service.user;
 
 import java.util.HashMap;
 import java.util.Map;

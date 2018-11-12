@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.model.UserInfo;
-import se.service.UserService;
+import se.service.user.UserService;
 
 @RestController
 @RequestMapping("/user")

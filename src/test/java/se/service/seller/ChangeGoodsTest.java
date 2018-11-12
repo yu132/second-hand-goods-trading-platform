@@ -16,7 +16,6 @@ import se.enumDefine.executeState.ExecuteState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.model.UserInfo;
-import se.service.SellerService;
 import se.util.PrepareAndClean;
 
 @RunWith(SpringJUnit4ClassRunner.class)

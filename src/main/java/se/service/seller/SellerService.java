@@ -1,4 +1,4 @@
-package se.service;
+package se.service.seller;
 
 import java.util.HashMap;
 import java.util.Map;

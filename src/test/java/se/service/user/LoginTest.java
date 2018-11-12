@@ -14,7 +14,6 @@ import se.Application;
 import se.enumDefine.executeState.ExecuteState;
 import se.enumDefine.reason.Reason;
 import se.model.UserInfo;
-import se.service.UserService;
 import se.util.PrepareAndClean;
 
 @RunWith(SpringJUnit4ClassRunner.class)

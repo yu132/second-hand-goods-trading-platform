@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Register">
+        <meta name="keywords" content="register">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+        <title>注册</title>
+
+        <link rel="icon" type="image/png" href="assets/i/favicon.jpg">
+        <link rel="stylesheet" href="assets/css/amazeui.css">
+        <link rel="stylesheet" href="assets/css/app.css">
+
+        <style>
+            html{
+                min-width: 600px;
+            }
+            body{
+                background:url(assets/i/background.jpg) no-repeat;
+                background-size:100%;
+            }
+            .header {
+                text-align: center;
+            }
+            .header h1 {
+                font-size: 200%;
+                color: #333;
+                margin-top: 30px;
+            }
+            .header p {
+                font-size: 14px;
+            }
+        </style>
+
+        <script src="assets/js/jquery-3.3.1.js"></script>
+        <script src="assets/js/amazeui.js"></script>
+        <script src="assets/js/register.js"></script>
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="am-g">
+                <h1>交易的开始>_<</h1>
+                <p>注册成为我们至尊无上的会员……！<br>买你想买，卖你想卖，从这里开始</p>
+            </div>
+            <hr>
+        </div>
+
+        <form class="am-form am-u-lg-6 am-u-md-8 am-u-sm-centered">
+            <label for="username">用户名：</label>
+            <input id="username" type="text" placeholder="请输入用户名（6-20位，只能使用数字、字母或下划线）" required>
+            <br>
+            <label for="password">密码：</label>
+            <input id="password" type="password" placeholder="请输入密码（10-30位，不能使用非法字符）" required>
+            <br>
+            <label for="pswdck">确认密码：</label>
+            <input id="pswdck" type="password" placeholder="请重复输入密码" required>
+            <br>
+            <label for="nickname">昵称：</label>
+            <input id="nickname" type="text" placeholder="请输入昵称（2-30位）" required>
+            <br>
+            <label for="mail">邮箱：</label>
+            <input id="mail" type="email" placeholder="请输入邮箱" required>
+            <br>
+            <label for="phone">联系电话：</label>
+            <input id="phone" type="tel" placeholder="请输入电话">
+            <br>
+            <label for="address">预设地址：</label>
+            <input id="address" type="text" placeholder="请输入预设收货地址">
+            <br>
+            <input id="register" class="am-btn am-btn-primary am-btn-sm am-fl" type="button" value="注册">
+            <br>
+            <hr>
+            <p style="text-align:right">Powered by 我爱小肥羊</p>
+        </form>
+    </body>
+</html>

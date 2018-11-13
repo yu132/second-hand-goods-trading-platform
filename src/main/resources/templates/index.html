@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Second Goods Trade">
+        <meta name="keywords" content="second,trade,p2p">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+
+        <title>Second Goods Trade</title>
+
+        <link rel="icon" type="image" href="assets/i/favicon.jpg">
+        <link rel="stylesheet" href="assets/css/amazeui.min.css">
+
+        <style>
+            html{
+                min-width: 600px;
+            }
+            body{
+                background:url(assets/i/background.jpg) no-repeat;
+                background-size:100% auto;
+            }
+            a{
+                cursor: pointer;
+            }
+            #acctpswd{
+                text-align: left;
+            }
+            #acctpswd label{
+                position: relative;
+                top: 5px;
+                left: 5%;
+                width: 25%;
+            }
+            #acctpswd input{
+                position: relative;
+                left:20px;
+                width:45%;
+                display:inline;
+                padding: 0.5em;
+                border: 1px solid #ccc;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            }
+
+            #acctpswd input:focus{
+                border-color: #3bb4f2;
+            }
+            #mailT{
+                width:0;
+            }
+            #findT{
+                width:0;
+            }
+            @media only screen and (min-width:641px) {
+                #acctpswd input{
+                    left:-40px;
+                }
+                #mailT{
+                    position: relative;
+                    display: inline !important;
+                    left: -20px;
+                    top: 5px;
+                    width:auto;
+                }
+                #findT{
+                    position: relative;
+                    display: inline !important;
+                    left: -20px;
+                    top: 5px;
+                    width:auto;
+                }
+            }
+            #verifyCode{
+                position: relative;
+                display: inline;
+                left:-20px;
+                top:13px;
+                width:100px;
+                height:30px;
+            }
+            #change{
+                position: relative;
+                display: inline;
+                left:-15px;
+                top:5px;
+                width:auto;
+                cursor: pointer;
+            }
+            @media only screen and (max-width:641px){
+                #mailI {
+                    position: relative;
+                    display: inline !important;
+                    left: 30px;
+                    top: 5px;
+                    width: auto;
+                }
+                #findI {
+                    position: relative;
+                    display: inline !important;
+                    left: 30px;
+                    top: 5px;
+                    width: auto;
+                }
+                #verifyCode {
+                    left: 92px;
+                }
+                #change {
+                    left: 97px;
+                }
+            }
+
+
+        </style>
+
+        <script src="assets/js/jquery-3.3.1.js"></script>
+        <script src="assets/js/amazeui.js"></script>
+        <script src="assets/js/verify.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                $("#register").click(function(){
+                    $(window).attr("location","register.html");
+                });
+
+                $("#login").click(function(){
+                    $('#loginFrame').modal({
+                        relatedTarget: this,
+                        onConfirm: function() {
+                            if($("#username").val()=="") {
+                                if($("#usrn").text()==="用户名：")
+                                    alert("请输入用户名……");
+                                else
+                                    alert("请输入邮箱……");
+                                return;
+                            }
+                            if($("#password").val()=="") {
+                                alert("请输入密码……");
+                                return;
+                            }
+                            let res = verifyCode.validate(document.getElementById("verify").value);
+                            if(res){
+                                let user = {};
+                                if($("#usrn").text()==="用户名：")
+                                    user.username = $("#username").val();
+                                else
+                                    user.mail = $("#username").val();
+                                user.password = $("#password").val();
+
+                                $.ajax({
+                                    url: "http://localhost:8080/secure/lessons/login?data="+user,
+                                    data: JSON.stringify(user),
+                                    type: "POST",
+                                    contentType: "application/json;charset=utf-8",
+                                    success: function(response){
+                                        if(response.success){
+                                            alert("登录成功(≥v≤)");
+                                        }
+                                    }
+                                });
+                            }else{
+                                alert("验证码错误");
+                            }
+                        }
+                    });
+                });
+
+                $("#mailT").click(function(){
+                    if($("#usrn").text()==="用户名：") {
+                        $("#usrn").text("邮箱：");
+                        $("#username").attr("placeholder", "请输入邮箱");
+                        $("#mailT").text("用户名登录");
+                    }
+                    else{
+                        $("#usrn").text("用户名：");
+                        $("#username").attr("placeholder", "请输入用户名");
+                        $("#mailT").text("邮箱登录");
+                    }
+                });
+
+                $("#mailI").click(function(){
+                    if($("#usrn").text()==="用户名：") {
+                        $("#usrn").text("邮箱：");
+                        $("#username").attr("placeholder", "请输入邮箱");
+                        $("#icon").attr("class","am-icon-user");
+                    }
+                    else{
+                        $("#usrn").text("用户名：");
+                        $("#username").attr("placeholder", "请输入用户名");
+                        $("#icon").attr("class","am-icon-envelope");
+                    }
+                });
+
+                let verifyCode = new Verify("verifyCode");
+                $("#change").click(function(){
+                    verifyCode = new Verify("verifyCode");
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <header class="am-topbar am-topbar-fixed-top">
+            <div class="am-container">
+                <h1 class="am-topbar-brand">SGT</h1>
+                <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only am-collapsed" data-am-collapse="{target: '#collapse-head'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+                <div class="am-topbar-collapse am-collapse" id="collapse-head" style="height: 20px;">
+                    <div class="am-topbar-right">
+                        <button id="register" class="am-btn am-btn-secondary am-topbar-btn am-btn-sm"><span class="am-icon-pencil"></span> 注册</button>
+                    </div>
+
+                    <div class="am-topbar-right">
+                        <button id="login" class="am-btn am-btn-primary am-topbar-btn am-btn-sm"><span class="am-icon-user"></span> 登录</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="loginFrame">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">登录</div>
+                <br>
+                <form id="acctpswd">
+                    <div style="display: block">
+                        <label id="usrn" for="username">用户名：</label>
+                        <input id="username" class="am-modal-prompt-input" type="text" placeholder="请输入用户名" required>
+                        <a id="mailT" class="am-hide-sm">邮箱登录</a>
+                        <a id="mailI" class="am-show-sm"><span id="icon" class="am-icon-envelope"></span></a>
+                    </div>
+                    <br>
+                    <div style="display: block">
+                        <label for="password">密码：</label>
+                        <input id="password" class="am-modal-prompt-input" type="password" placeholder="请输入密码" required>
+                        <a id="findT" class="am-hide-sm">找回密码</a>
+                        <a id="findI" class="am-show-sm"><span class="am-icon-search"></span></a>
+                    </div>
+                    <br>
+                    <div style="display: block">
+                        <label for="verify">验证码：</label>
+                        <input id="verify" class="am-modal-prompt-input" type="text" placeholder="请输入验证码" required>
+                        <div id="verifyCode"></div>
+                        <div id="change"><span class="am-icon-refresh" style="color:#0e90d2;"></span></div>
+                    </div>
+                    <br>
+                </form>
+
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-confirm>登录</span>
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

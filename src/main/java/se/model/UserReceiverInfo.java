@@ -11,14 +11,14 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 
 /**
- * 用户和用户地址多对多联系表
+ * 用户和收货信息表
  * @author HP
  *
  */
 @Data
 @Entity
-@Table(name="t_relation_between_user_and_address")
-public class RelationBetweenUserAndAddress {
+@Table(name="t_user_receiver_information")
+public class UserReceiverInfo {
 	@Id
 	@GenericGenerator(name = "generator", strategy = "native")
 	@GeneratedValue(generator = "generator")
@@ -32,8 +32,20 @@ public class RelationBetweenUserAndAddress {
 	private Integer userId;
 	
 	/**
-	 * id
+	 * 收货地址
 	 */
-	@Column(name = "address",length = 11)
-	private String address;
+	@Column(name = "address",length = 100)
+	private String recriverAddress;
+	
+	/**
+	 * 收货人姓名
+	 */
+	@Column(name = "name",length = 11)
+	private String recriverName;
+	
+	/**
+	 * 用户联系方式
+	 */
+	@Column(name = "phone_number",length = 30)
+	private String recriverPhoneNumber;
 }

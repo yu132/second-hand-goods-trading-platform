@@ -102,6 +102,15 @@ public class DeleteGoodsTest {
 		Assert.assertEquals(Reason.GOODS_ID_IS_NULL,res.get("Reason"));
 	}
 	
+	@Test
+	public void testGoodsNotExist(){
+		Map<String, Object> res=sellerService.deleteGoods(user.getId(), 0);
+		
+		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
+		
+		Assert.assertEquals(Reason.GOODS_NOT_EXIST,res.get("Reason"));
+	}
+	
 	@After
 	public void clean(){
 		try{

@@ -8,7 +8,7 @@ import se.service.buyer.SearchService;
 
 @Service
 public class SearchServiceImpl implements SearchService {
-
+	
 	/**
 	 * 主页推荐
 	 * @param page

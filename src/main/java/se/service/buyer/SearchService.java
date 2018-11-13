@@ -3,6 +3,8 @@ package se.service.buyer;
 import java.util.Map;
 
 public interface SearchService {
+	
+	public final static Integer AMOUNT_OF_GOODS_EACH_PAGE=50;
 
 	/**
 	 * 主页推荐

@@ -100,10 +100,14 @@ public class SellerService {
 		return result;
 	}
 	
-	public Map<String,Object> getMyGoods(Integer userId,int page){
+	public Map<String,Object> getMyGoods(Integer userId,Integer page){
 		Map<String,Object> result=new HashMap<>();
 		Map<String,Object> getMyGoodsPageResult=new HashMap<>();
-
+		if(page==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason",Reason.GOODS_PAGE_IS_NULL);
+			return result;
+		}
 		if(page<=0) {
 			result.put("State", ExecuteState.ERROR);
 			result.put("Reason",Reason.GOODS_PAGE_IS_NEGATIVE_OR_ZERO);
@@ -122,7 +126,7 @@ public class SellerService {
 			result.put("Reason",Reason.GOODS_PAGE_OUT_OF_BOUNDS);
 			return result;
 		}else {
-	        Pageable pageable = new QPageRequest(page, AMOUNT_OF_GOODS_EACH_PAGE);
+	        Pageable pageable = new QPageRequest(page.intValue(), AMOUNT_OF_GOODS_EACH_PAGE);
 	        Page<Goods> goodsList = goodsRepository.findBySellerIdOrderByCommitTimeDesc(userId, pageable);
 	        result.put("State", ExecuteState.SUCCESS);
 	        result.put("GoodsList", goodsList);

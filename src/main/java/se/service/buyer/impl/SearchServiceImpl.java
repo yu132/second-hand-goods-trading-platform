@@ -86,6 +86,7 @@ public class SearchServiceImpl implements SearchService {
         result.put("GoodsList", goodsList);
 		return result;
 		
+		
 	}
 	
 	/**

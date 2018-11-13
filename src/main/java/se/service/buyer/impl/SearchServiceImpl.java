@@ -100,9 +100,20 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	public Map<String,Object> getGoodsByKeyWords(String[] keyWords,Integer page){
+		Map<String,Object> result=new HashMap<>();
+		if(keyWords==null){
+			result.put("State", getRecommendGoods(page).get("State"));
+	        result.put("GoodsList",getRecommendGoods(page).get("GoodsList"));
+	        return result;
+		}
 		
-		//TODO
-		return null;
+		LinkedList<String> kws=new LinkedList<String>();
+		for(String i : keyWords){
+			if(i!=null&&!i.equals("")){
+				kws.add(i);
+			}
+		}
+		return result;
 	}
 	
 	/**

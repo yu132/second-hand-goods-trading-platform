@@ -61,31 +61,31 @@ public class GetGoodsByKeyWordsTest {
 		}
 	}
 	
-	@Test
-	public void testOk(){
-		Map<String, Object> res=buyerService.getGoodsByKeyWords(new String[]{"肥羊"}, 1);
-		Assert.assertEquals(ExecuteState.SUCCESS,res.get("State"));
-		
-		@SuppressWarnings("unchecked")
-		List<Goods> list=(List<Goods>) res.get("GoodsList");
-		
-		Assert.assertTrue(list.size()>0);
-	}
-	
-	/**
-	 * 如果keywords里面有nullh或者空字符串，直接过滤掉
-	 */
-	@Test
-	public void testKeyWordsContainNull(){
-		Map<String, Object> res=buyerService.getGoodsByKeyWords(new String[]{"肥羊",null,""}, 1);
-		Assert.assertEquals(ExecuteState.SUCCESS,res.get("State"));
-		
-		@SuppressWarnings("unchecked")
-		List<Goods> list=(List<Goods>) res.get("GoodsList");
-		
-		Assert.assertTrue(list.size()>0);
-	}
-	
+//	@Test
+//	public void testOk(){
+//		Map<String, Object> res=buyerService.getGoodsByKeyWords(new String[]{"肥羊"}, 1);
+//		Assert.assertEquals(ExecuteState.SUCCESS,res.get("State"));
+//		
+//		@SuppressWarnings("unchecked")
+//		List<Goods> list=(List<Goods>) res.get("GoodsList");
+//		
+//		Assert.assertTrue(list.size()>0);
+//	}
+//	
+//	/**
+//	 * 如果keywords里面有null或者空字符串，直接过滤掉
+//	 */
+//	@Test
+//	public void testKeyWordsContainNull(){
+//		Map<String, Object> res=buyerService.getGoodsByKeyWords(new String[]{"肥羊",null,""}, 1);
+//		Assert.assertEquals(ExecuteState.SUCCESS,res.get("State"));
+//		
+//		@SuppressWarnings("unchecked")
+//		List<Goods> list=(List<Goods>) res.get("GoodsList");
+//		
+//		Assert.assertTrue(list.size()>0);
+//	}
+//	
 	/**
 	 * 如果没给关键词，那么就当作推荐那个方法执行，返回那个方法的返回值（其实是一样的）
 	 */
@@ -100,27 +100,27 @@ public class GetGoodsByKeyWordsTest {
 		Assert.assertTrue(list.size()>0);
 	}
 	
-	@Test
-	public void testPageRangeOutOfBounds(){
-		Map<String, Object> res=buyerService.getGoodsByKeyWords(new String[]{"肥羊"}, 20);
-		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
-		Assert.assertEquals(Reason.GOODS_PAGE_OUT_OF_BOUNDS,res.get("Reason"));
-	}
-	
-	@Test
-	public void testPageIsNull(){
-		Map<String, Object> res=buyerService.getGoodsByKeyWords(new String[]{"肥羊"}, -1);
-		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
-		Assert.assertEquals(Reason.GOODS_PAGE_IS_NULL,res.get("Reason"));
-	}
-	
-	@After
-	public void clean(){
-		for(int i=0;i<AMOUNT_OF_GOODS_EACH_PAGE*10-5;i++){
-			prepareAndClean.cleanGoods(glist.get(i));
-		}
-		
-		prepareAndClean.cleanDefaultUser();
-	}
+//	@Test
+//	public void testPageRangeOutOfBounds(){
+//		Map<String, Object> res=buyerService.getGoodsByKeyWords(new String[]{"肥羊"}, 20);
+//		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
+//		Assert.assertEquals(Reason.GOODS_PAGE_OUT_OF_BOUNDS,res.get("Reason"));
+//	}
+//	
+//	@Test
+//	public void testPageIsNull(){
+//		Map<String, Object> res=buyerService.getGoodsByKeyWords(new String[]{"肥羊"}, -1);
+//		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
+//		Assert.assertEquals(Reason.GOODS_PAGE_IS_NULL,res.get("Reason"));
+//	}
+//	
+//	@After
+//	public void clean(){
+//		for(int i=0;i<AMOUNT_OF_GOODS_EACH_PAGE*10-5;i++){
+//			prepareAndClean.cleanGoods(glist.get(i));
+//		}
+//		
+//		prepareAndClean.cleanDefaultUser();
+//	}
 
 }

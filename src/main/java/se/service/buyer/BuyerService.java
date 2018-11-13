@@ -52,7 +52,7 @@ public class BuyerService implements BuyService,SearchService,ShoppingTrolleySer
 	@Override
 	public Map<String, Object> getGoodsByKeyWords(String[] keyWords, Integer page) {
 		// TODO Auto-generated method stub
-		return null;
+		return searchService.getGoodsByKeyWords(keyWords,page);
 	}
 
 	@Override

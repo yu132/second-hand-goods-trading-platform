@@ -34,6 +34,12 @@ public class SellerService {
 	 */
 	public final static int AMOUNT_OF_GOODS_EACH_PAGE=10;
 
+	/**
+	 * 添加商品
+	 * @param userId
+	 * @param goods
+	 * @return
+	 */
 	public Map<String,Object> addGoods(Integer userId,Goods goods){
 		Map<String,Object> result=new HashMap<>();
 		if(userId==null) {
@@ -100,6 +106,12 @@ public class SellerService {
 		return result;
 	}
 	
+	/**
+	 * 根据卖家id得到卖家所有商品，分页
+	 * @param userId
+	 * @param page
+	 * @return
+	 */
 	public Map<String,Object> getMyGoods(Integer userId,Integer page){
 		Map<String,Object> result=new HashMap<>();
 		Map<String,Object> getMyGoodsPageResult=new HashMap<>();
@@ -133,7 +145,11 @@ public class SellerService {
 			return result;
 		}		
 	}
-	
+	/**
+	 * 根据卖家id得到显示该卖家所有商品的页数
+	 * @param userId
+	 * @return
+	 */
 	public Map<String,Object> getMyGoodsPage(Integer userId){
 		Map<String,Object> result=new HashMap<>();
 		if(userId==null) {
@@ -155,9 +171,13 @@ public class SellerService {
 			return result;
 		}
 	}
-	
+	/**
+	 * 修改商品信息
+	 * @param userId
+	 * @param newGoods
+	 * @return
+	 */
 	public Map<String,Object> changeGoods(Integer userId,Goods newGoods){
-		//TODO
 		Map<String,Object> result=new HashMap<>();
 
 		if(userId==null) {

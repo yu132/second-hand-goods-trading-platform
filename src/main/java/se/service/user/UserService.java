@@ -25,7 +25,12 @@ public class UserService {
 	
 	@Autowired
 	private DateUtil dateUtil;
-	
+	/**
+	 * 登录方法
+	 * @param userName
+	 * @param password
+	 * @return
+	 */
 	public Map<String,Object> login(String userName,String password){
 		
 		Map<String,Object> result=new HashMap<>();
@@ -54,7 +59,11 @@ public class UserService {
 		
 		return result;
 	}
-	
+	/**
+	 * 注册方法
+	 * @param userInfo
+	 * @return
+	 */
 	public Map<String,Object> register(UserInfo userInfo){
 		
 			

@@ -80,19 +80,6 @@ public class SearchServiceImpl implements SearchService {
         result.put("GoodsList", goodsList);
 		return result;
 		
-//		if(page==complete_pages+1){
-//			
-////			for(long i=complete_pages*AMOUNT_OF_GOODS_EACH_PAGE;i<total;i++){
-//				
-//				
-//			
-//			
-//		}else{
-//			for(int i =(page-1)*AMOUNT_OF_GOODS_EACH_PAGE;i<AMOUNT_OF_GOODS_EACH_PAGE;i++){
-//				
-//			}
-//		}
-//		return result;
 	}
 	
 	/**

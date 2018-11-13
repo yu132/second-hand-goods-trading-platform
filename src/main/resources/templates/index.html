@@ -147,12 +147,12 @@
                                 else
                                     user.mail = $("#username").val();
                                 user.password = $("#password").val();
-
+                                //alert(JSON.stringify(user));
                                 $.ajax({
-                                    url: "http://localhost:8080/secure/lessons/login?data="+user,
-                                    data: JSON.stringify(user),
-                                    type: "POST",
-                                    contentType: "application/json;charset=utf-8",
+                                    url: "http://localhost:8080/user/login?username=" + user.username + "&password=" + user.password,
+                                    //data: JSON.stringify(user),
+                                    type: "GET",
+                                    contentType: "application/text;charset=utf-8",
                                     success: function(response){
                                         if(response.success){
                                             alert("登录成功(≥v≤)");

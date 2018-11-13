@@ -97,10 +97,10 @@ public class GetMyGoodsTest {
 		Assert.assertEquals(AMOUNT_OF_GOODS_EACH_PAGE-5, goods.size());
 		
 		for(int j=0;j<AMOUNT_OF_GOODS_EACH_PAGE-5;j++){
+			
 			Assert.assertTrue(glist.get(9*AMOUNT_OF_GOODS_EACH_PAGE+j).equals(goods.get(j)));
 		}
 	}
-	
 	@Test
 	public void testPageOutOfBound(){
 		Map<String,Object> res=sellerService.getMyGoods(user.getId(), 11);
@@ -144,7 +144,6 @@ public class GetMyGoodsTest {
 		
 		Assert.assertNull(res.get("GoodsList"));
 	}
-	
 	@After
 	public void clean(){
 		for(int i=0;i<AMOUNT_OF_GOODS_EACH_PAGE*10-5;i++){

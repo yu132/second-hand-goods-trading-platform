@@ -1,5 +1,7 @@
 #第一个数据源（多数据源将会在后面介绍,primary表示为第一个数据源）
 spring:
+   mvc:
+      static-path-pattern: /static/**
    jpa: 
       show-sql: true
       hibernate:

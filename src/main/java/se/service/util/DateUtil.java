@@ -11,7 +11,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public Date getCurrentDate(){
-		Date d=new Date();
+		Date d=new Date(System.currentTimeMillis());
 		return d; 
 	}
 	/**

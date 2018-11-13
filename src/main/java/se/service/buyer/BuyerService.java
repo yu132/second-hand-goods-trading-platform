@@ -46,7 +46,7 @@ public class BuyerService implements BuyService,SearchService,ShoppingTrolleySer
 	@Override
 	public Map<String, Object> getRecommendGoods(Integer page) {
 		// TODO Auto-generated method stub
-		return null;
+		return searchService.getRecommendGoods(page);
 	}
 
 	@Override

@@ -50,7 +50,13 @@ public class SearchServiceImpl implements SearchService {
 		
 		long complete_pages = total/AMOUNT_OF_GOODS_EACH_PAGE;
 		long Remainder = total%AMOUNT_OF_GOODS_EACH_PAGE;
-		
+		Long pages;
+		if(Remainder>0){
+			pages = complete_pages+1;
+		}else{
+			pages = complete_pages;
+		}
+		 
 		Map<String,Object> result=new HashMap<>();
 		
 		if(page==null) {
@@ -59,7 +65,7 @@ public class SearchServiceImpl implements SearchService {
 			return result;
 		}
 		
-		if(page>complete_pages+1) {
+		if(page>pages) {
 			result.put("State", ExecuteState.ERROR);
 			result.put("Reason", Reason.GOODS_PAGE_OUT_OF_BOUNDS);
 			return result;

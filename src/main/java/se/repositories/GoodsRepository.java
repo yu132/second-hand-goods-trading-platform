@@ -13,5 +13,8 @@ public interface GoodsRepository extends CrudRepository<Goods, Integer>, JpaRepo
 	public Goods findBySellerIdAndGoodsName(Integer sellerId,String goodsName);
 	public Goods findBySellerId(Integer sellerId);
 	public long countBySellerId(Integer sellerId);
+	public Iterable<Goods> findAllByState(String state);
+	public long countByState(String state);
+
 	public Page<Goods> findBySellerIdOrderByCommitTimeDesc(Integer sellerId,Pageable pageable);
 }

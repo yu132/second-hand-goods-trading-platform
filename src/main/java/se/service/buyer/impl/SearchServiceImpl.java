@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class SearchServiceImpl implements SearchService {
 	/**
 	 * 每页货品的数量
 	 */
-	public final static int AMOUNT_OF_GOODS_EACH_PAGE=10;
+
 	/**
 	 * 主页推荐
 	 * @param page
@@ -47,7 +48,7 @@ public class SearchServiceImpl implements SearchService {
 		
 		//TODO
 		Long total = goodsRepository.countByState(GoodsState.PASS_CHECK.toString());
-		
+
 		long complete_pages = total/AMOUNT_OF_GOODS_EACH_PAGE;
 		long Remainder = total%AMOUNT_OF_GOODS_EACH_PAGE;
 		Long pages;
@@ -56,7 +57,7 @@ public class SearchServiceImpl implements SearchService {
 		}else{
 			pages = complete_pages;
 		}
-		 
+
 		Map<String,Object> result=new HashMap<>();
 		
 		if(page==null) {
@@ -80,10 +81,12 @@ public class SearchServiceImpl implements SearchService {
 
 		LinkedList<Goods> glist=new LinkedList<Goods>();
 		
-		Pageable pageable = new QPageRequest(page.intValue(), AMOUNT_OF_GOODS_EACH_PAGE);
+		Pageable pageable = new PageRequest(page.intValue()-1, AMOUNT_OF_GOODS_EACH_PAGE.intValue());
         Page<Goods> goodsList = goodsRepository.findByStateOrderByCommitTimeDesc(GoodsState.PASS_CHECK.toString(), pageable);
+        System.out.println();
+        System.out.println(goodsList.getContent().size());
         result.put("State", ExecuteState.SUCCESS);
-        result.put("GoodsList", goodsList);
+        result.put("GoodsList", goodsList.getContent());
 		return result;
 		
 		

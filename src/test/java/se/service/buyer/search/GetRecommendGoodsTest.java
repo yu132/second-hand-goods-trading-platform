@@ -70,7 +70,7 @@ public class GetRecommendGoodsTest {
 			
 			@SuppressWarnings("unchecked")
 			List<Goods> list=(List<Goods>) res.get("GoodsList");
-			
+
 			Assert.assertEquals(AMOUNT_OF_GOODS_EACH_PAGE.intValue(),list.size());
 		}
 		
@@ -79,7 +79,7 @@ public class GetRecommendGoodsTest {
 		
 		@SuppressWarnings("unchecked")
 		List<Goods> list=(List<Goods>) res.get("GoodsList");
-		
+
 		Assert.assertEquals(AMOUNT_OF_GOODS_EACH_PAGE.intValue()-5,list.size());
 	}
 	

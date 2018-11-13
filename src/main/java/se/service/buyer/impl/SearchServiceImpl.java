@@ -7,9 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 
 import se.enumDefine.executeState.ExecuteState;
+import se.enumDefine.goodsState.GoodsState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.repositories.GoodsRepository;
@@ -42,7 +46,8 @@ public class SearchServiceImpl implements SearchService {
 	public Map<String,Object> getRecommendGoods(Integer page){
 		
 		//TODO
-		Long total = goodsRepository.count();
+		Long total = goodsRepository.countByState(GoodsState.PASS_CHECK.toString());
+		
 		long complete_pages = total/AMOUNT_OF_GOODS_EACH_PAGE;
 		long Remainder = total%AMOUNT_OF_GOODS_EACH_PAGE;
 		
@@ -69,18 +74,25 @@ public class SearchServiceImpl implements SearchService {
 
 		LinkedList<Goods> glist=new LinkedList<Goods>();
 		
-		if(page==complete_pages+1){
-			for(long i=complete_pages*AMOUNT_OF_GOODS_EACH_PAGE;i<total;i++){
-				//获取当页的goods 首先判断状态？
-				glist.add(goodsRepository.)
-			}
-			
-		}else{
-			for(int i =(page-1)*AMOUNT_OF_GOODS_EACH_PAGE;i<AMOUNT_OF_GOODS_EACH_PAGE;i++){
-				
-			}
-		}
+		Pageable pageable = new QPageRequest(page.intValue(), AMOUNT_OF_GOODS_EACH_PAGE);
+        Page<Goods> goodsList = goodsRepository.findByStateOrderByCommitTimeDesc(GoodsState.PASS_CHECK.toString(), pageable);
+        result.put("State", ExecuteState.SUCCESS);
+        result.put("GoodsList", goodsList);
 		return result;
+		
+//		if(page==complete_pages+1){
+//			
+////			for(long i=complete_pages*AMOUNT_OF_GOODS_EACH_PAGE;i<total;i++){
+//				
+//				
+//			
+//			
+//		}else{
+//			for(int i =(page-1)*AMOUNT_OF_GOODS_EACH_PAGE;i<AMOUNT_OF_GOODS_EACH_PAGE;i++){
+//				
+//			}
+//		}
+//		return result;
 	}
 	
 	/**

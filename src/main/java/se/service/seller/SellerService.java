@@ -93,7 +93,7 @@ public class SellerService {
 			return result;
 		}
 		goods.setSellerId(userId);
-		goods.setState(GoodsState.WAIT_CHECK.toString());
+		goods.setState(GoodsState.PASS_CHECK.toString());
 		goods.setCommitTime(dateUtil.getCurrentDate());
 		goodsRepository.save(goods);
 		result.put("State", ExecuteState.SUCCESS);

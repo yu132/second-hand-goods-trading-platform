@@ -99,7 +99,6 @@ public class SearchServiceImpl implements SearchService {
 	public Map<String,Object> getGoodsByKeyWords(String[] keyWords,Integer page){
 		
 		//TODO
-		
 		return null;
 	}
 	

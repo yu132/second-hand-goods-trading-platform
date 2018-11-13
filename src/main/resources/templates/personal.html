@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="js cssanimations">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Personal homepage">
+        <meta name="keywords" content="personal,homepage,information">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+
+        <title>个人主页</title>
+
+        <link rel="stylesheet" href="assets/css/amazeui.min.css">
+        <link rel="stylesheet" href="assets/css/admin.css">
+
+        <script src="assets/js/jquery-3.3.1.js"></script>
+        <script src="assets/js/amazeui.min.js"></script>
+        <script src="assets/js/app.js"></script>
+    </head>
+
+    <body>
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand">
+                <strong>SGT</strong>
+            </div>
+
+            <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+            <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+                <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+                    <li><a href="index.html"><span class="am-icon-home"></span> 首页</a></li>
+                    <li><a href="javascript:"><span class="am-icon-comments"></span> 消息 <span class="am-badge am-badge-warning">5</span></a></li>
+                    <li class="am-dropdown" data-am-dropdown="">
+                        <a class="am-dropdown-toggle" href="javascript:" data-am-dropdown-toggle="">
+                            <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                        </a>
+                        <ul class="am-dropdown-content">
+                            <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+                            <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+                            <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+                        </ul>
+                    </li>
+                    <li class="am-hide-sm-only"><a id="admin-fullscreen" href="javascript:"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="am-cf admin-main">
+            <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+                <div class="am-offcanvas-bar admin-offcanvas-bar">
+                    <ul class="am-list admin-sidebar-list">
+                        <li><a href="personal.html"><span class="am-icon-user"></span> 个人资料</a></li>
+                        <li class="admin-parent">
+                            <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-shopping-bag"></span> 商品信息 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+                                <li><a href="buy.html"><span class="am-icon-shopping-cart"></span> 我的订单</a></li>
+                                <li><a href="sell.html"><span class="am-icon-cubes"></span> 我的小店</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="wallet.html"><span class="am-icon-credit-card"></span> 我的钱包</a></li>
+                        <li><a href="relationship.html"><span class="am-icon-users"></span> 我的好友</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <div class="admin-content-body">
+                    <div class="am-cf am-padding am-padding-bottom-0">
+                        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">个人资料</strong></div>
+                    </div>
+                    <hr>
+                    <div class="am-g">
+                        <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+                            <div class="am-panel am-panel-default" style="padding-bottom: 10px">
+                                <div class="am-panel-bd">
+                                    <div class="am-g">
+                                        <div class="am-u-md-4">
+                                            <img class="am-img-circle am-img-thumbnail" alt="" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/200/h/200/q/80">
+                                        </div>
+                                        <div class="am-u-md-8">&nbsp;&nbsp;&nbsp;&nbsp;一个无论是二次元还是三四五六次元的头像一定会有效地彰显你完美的气质>_<</div>
+
+                                        <div style="position:relative;left: 20px;top: 10px">
+                                            <input id="user-pic" style="width: 75%" type="file" accept="image/*">
+                                            <p class="am-form-help">请选择要上传的图像文件...</p>
+                                            <button class="am-btn am-btn-primary am-btn-xs" type="button">保存</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="am-panel am-panel-default">
+                                <div class="am-panel-bd">
+                                    <div class="user-info">
+                                        <p>等级信息</p>
+                                        <div class="am-progress am-progress-sm">
+                                            <div class="am-progress-bar" style="width: 60%;"></div>
+                                        </div>
+                                        <p class="user-info-order">当前等级：<strong>LV8</strong> 活跃天数：<strong>587</strong> 距离下一级别：<strong>160</strong></p>
+                                    </div>
+                                    <div class="user-info">
+                                        <p>信用信息</p>
+                                        <div class="am-progress am-progress-sm">
+                                            <div class="am-progress-bar am-progress-bar-success" style="width: 80%;"></div>
+                                        </div>
+                                        <p class="user-info-order">信用等级：正常当前 信用积分：<strong>80</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+                            <form class="am-form am-form-horizontal">
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label" for="username">用户名</label>
+                                    <div class="am-u-sm-9">
+                                        <input id="username" type="text" placeholder="姓名 / Name">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label" for="nickname">昵称</label>
+                                    <div class="am-u-sm-9">
+                                        <input id="nickname" type="text" placeholder="姓名 / Name">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label" for="sex">性别</label>
+                                    <div class="am-u-sm-9">
+                                        <input id="sex" type="text" placeholder="姓名 / Name">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label" for="mail">邮箱</label>
+                                    <div class="am-u-sm-9">
+                                        <input id="mail" type="text" placeholder="姓名 / Name">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label" for="phone">电话</label>
+                                    <div class="am-u-sm-9">
+                                        <input id="phone" type="text" placeholder="姓名 / Name">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label class="am-u-sm-3 am-form-label" for="qq">QQ</label>
+                                    <div class="am-u-sm-9">
+                                        <input id="qq" type="text" placeholder="姓名 / Name">
+                                    </div>
+                                </div>
+
+
+
+                <div class="am-form-group">
+                  <label class="am-u-sm-3 am-form-label" for="user-intro">个性签名</label>
+                  <div class="am-u-sm-9">
+                    <textarea id="user-intro" placeholder="输入个人简介" rows="5">输入个人简介</textarea>
+                    <small>250字以内写出你的属性~</small>
+                  </div>
+                </div>
+
+                <div class="am-form-group">
+                  <div class="am-u-sm-9 am-u-sm-push-3">
+                    <button class="am-btn am-btn-primary" type="button">保存修改</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <footer class="admin-content-footer">
+          <hr>
+          <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+        </footer>
+
+      </div>
+      <!-- content end -->
+
+    </div>
+
+    <a class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" href="#" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+    <footer>
+      <hr>
+      <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+    </footer>
+
+
+
+
+
+    </body>
+</html>

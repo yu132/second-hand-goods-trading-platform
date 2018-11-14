@@ -8,4 +8,5 @@ import se.model.ShoppingTrolley;
 
 @Repository
 public interface ShoppingTrolleyRepository extends CrudRepository<ShoppingTrolley, Integer>, JpaRepository<ShoppingTrolley, Integer> {
+	public Iterable<ShoppingTrolley> findAllByUserId(Integer userId);
 }

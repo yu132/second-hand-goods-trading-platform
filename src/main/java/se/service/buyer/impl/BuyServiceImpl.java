@@ -11,7 +11,10 @@ import se.enumDefine.orderState.OrderState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.model.Order;
+import se.model.OrderTimes;
+import se.model.ShoppingTrolley;
 import se.repositories.GoodsRepository;
+import se.repositories.ShoppingTrolleyRepository;
 import se.service.buyer.BuyService;
 
 @Service
@@ -19,10 +22,11 @@ public class BuyServiceImpl implements BuyService {
 
 	@Autowired
 	private GoodsRepository goodsRepository;
+	@Autowired
+	ShoppingTrolleyRepository shoppingTrolleyRepository;
 	@Override
 	public Map<String,Object> buyGoodsFromGoodsId(Integer userId,Integer goodsId,Integer amount){
 		
-		//TODO
 		Map<String,Object> result=new HashMap<>();
 		if(userId==null) {
 			result.put("State", ExecuteState.ERROR);
@@ -57,6 +61,10 @@ public class BuyServiceImpl implements BuyService {
 		order.setAmount(amount);
 		order.setBuyerId(userId);
 		order.setGoodsId(goodsId);
+		
+		OrderTimes orderTimes=new OrderTimes();
+		//TODO
+		//OrderTimes添加下单时间，order添加OrderTimes
 		return null;
 	}
 	
@@ -64,7 +72,17 @@ public class BuyServiceImpl implements BuyService {
 	public Map<String,Object> buyGoodsFromShoppingTrolley(Integer userId){
 		
 		//TODO
-		
+		Map<String,Object> result=new HashMap<>();
+
+		if(userId==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason", Reason.USER_ID_IS_NULL);
+			return result;
+		}
+		Iterable<ShoppingTrolley> shoppingTrolleys=shoppingTrolleyRepository.findAllByUserId(userId);
+		for(ShoppingTrolley s:shoppingTrolleys) {
+			
+		}
 		return null;
 	}
 	

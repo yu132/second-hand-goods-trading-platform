@@ -55,7 +55,7 @@ public class GetGoodsInformationTest {
 	@Test
 	public void testOk(){
 		Map<String, Object> res=buyerService.getGoodsInformation(goods.getId());
-		
+		System.out.println(res.get("Reason"));
 		Assert.assertEquals(ExecuteState.SUCCESS, res.get("State"));
 		
 		Assert.assertEquals(goods, res.get("Goods"));
@@ -63,7 +63,7 @@ public class GetGoodsInformationTest {
 	
 	@Test
 	public void testGoodsNotExist(){
-		Map<String, Object> res=buyerService.getGoodsInformation(0);
+		Map<String, Object> res=buyerService.getGoodsInformation(-1);
 		
 		Assert.assertEquals(ExecuteState.ERROR, res.get("State"));
 		

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -122,10 +123,25 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	public Map<String,Object> getGoodsInformation(Integer goodsId){
+		Map<String,Object> result=new HashMap<>();
+
+		if(goodsId == null){
+			result.put("State", ExecuteState.ERROR);
+	        result.put("Reason",Reason.GOODS_ID_IS_NULL);
+	        return result;
+		}
+		Optional<Goods> g= goodsRepository.findById(goodsId);
+		if(!g.isPresent()){
+			result.put("State", ExecuteState.ERROR);
+	        result.put("Reason",Reason.GOODS_NOT_EXIST);
+	        return result;
+		}
+			
 		
-		//TODO
-		
-		return null;
+		result.put("State", ExecuteState.SUCCESS);
+		result.put("Reason","ddddddddddddddddddddddddddddd");
+	    result.put("Goods", g.get());
+		return result;
 	}
 	
 }

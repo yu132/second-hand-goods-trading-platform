@@ -58,7 +58,7 @@ public class BuyerService implements BuyService,SearchService,ShoppingTrolleySer
 	@Override
 	public Map<String, Object> getGoodsInformation(Integer goodsId) {
 		// TODO Auto-generated method stub
-		return null;
+		return searchService.getGoodsInformation(goodsId);
 	}
 
 	@Override

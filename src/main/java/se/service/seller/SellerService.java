@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
@@ -138,10 +139,10 @@ public class SellerService {
 			result.put("Reason",Reason.GOODS_PAGE_OUT_OF_BOUNDS);
 			return result;
 		}else {
-	        Pageable pageable = new QPageRequest(page.intValue(), AMOUNT_OF_GOODS_EACH_PAGE);
+	        Pageable pageable = new PageRequest(page.intValue(), AMOUNT_OF_GOODS_EACH_PAGE);
 	        Page<Goods> goodsList = goodsRepository.findBySellerIdOrderByCommitTimeDesc(userId, pageable);
 	        result.put("State", ExecuteState.SUCCESS);
-	        result.put("GoodsList", goodsList);
+	        result.put("GoodsList", goodsList.getContent());
 			return result;
 		}		
 	}

@@ -62,7 +62,7 @@ public class BuyerService implements BuyService,SearchService,ShoppingTrolleySer
 	}
 
 	@Override
-	public Map<String, Object> buyGoodsFromGoodsId(Integer userId, Integer goodsId) {
+	public Map<String, Object> buyGoodsFromGoodsId(Integer userId, Integer goodsId, Integer amount) {
 		// TODO Auto-generated method stub
 		return null;
 	}

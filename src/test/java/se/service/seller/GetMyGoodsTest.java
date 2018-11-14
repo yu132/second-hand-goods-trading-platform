@@ -1,6 +1,7 @@
 package se.service.seller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,9 +16,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
 import se.enumDefine.executeState.ExecuteState;
+import se.enumDefine.goodsState.GoodsState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.model.UserInfo;
+import se.repositories.GoodsRepository;
 import se.util.PrepareAndClean;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,6 +32,9 @@ public class GetMyGoodsTest {
 	
 	@Autowired
 	private PrepareAndClean prepareAndClean;
+	
+	@Autowired
+	private GoodsRepository goodsRepository;
 	
 	private final int AMOUNT_OF_GOODS_EACH_PAGE=SellerService.AMOUNT_OF_GOODS_EACH_PAGE;
 	
@@ -49,13 +55,13 @@ public class GetMyGoodsTest {
 			goods.setDescription("大肥羊: weight="+(i+40)+"kg");
 			goods.setEmailRemind(Boolean.TRUE);
 			
-			sellerService.addGoods(user.getId(), goods);
+			goods.setSellerId(user.getId());
+			goods.setState(GoodsState.PASS_CHECK.toString());
+			goods.setCommitTime(new Date(123456789+i*10000));
+			
+			goodsRepository.save(goods);
 			
 			glist.add(goods);
-			
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {}
 		}
 		
 		//由于后加的商品应该在前面，所以这样排序

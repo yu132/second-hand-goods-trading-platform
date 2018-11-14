@@ -1,5 +1,6 @@
 package se.service.seller;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.junit.After;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
 import se.enumDefine.executeState.ExecuteState;
+import se.enumDefine.goodsState.GoodsState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.model.UserInfo;
@@ -22,9 +24,6 @@ import se.util.PrepareAndClean;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 public class DeleteGoodsTest {
-	
-	//删除物品，未测试物品没找到的情况
-	
 	
 	@Autowired
 	private SellerService sellerService;
@@ -55,7 +54,11 @@ public class DeleteGoodsTest {
 		goodsToDelete.setDescription("大肥羊: weight="+40+"kg");
 		goodsToDelete.setEmailRemind(Boolean.TRUE);
 		
-		sellerService.addGoods(user.getId(), goodsToDelete);
+		goodsToDelete.setSellerId(user.getId());
+		goodsToDelete.setState(GoodsState.PASS_CHECK.toString());
+		goodsToDelete.setCommitTime(new Date(123456789));
+		
+		goodsRepository.save(goodsToDelete);
 	}
 	
 	@Test

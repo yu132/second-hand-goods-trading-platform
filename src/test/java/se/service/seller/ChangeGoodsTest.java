@@ -1,5 +1,6 @@
 package se.service.seller;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.junit.After;
@@ -13,9 +14,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
 import se.enumDefine.executeState.ExecuteState;
+import se.enumDefine.goodsState.GoodsState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.model.UserInfo;
+import se.repositories.GoodsRepository;
 import se.util.PrepareAndClean;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,6 +30,9 @@ public class ChangeGoodsTest {
 	
 	@Autowired
 	private PrepareAndClean prepareAndClean;
+	
+	@Autowired
+	private GoodsRepository goodsRepository;
 	
 	private UserInfo user;
 	
@@ -50,9 +56,13 @@ public class ChangeGoodsTest {
 		goodsExist.setAmount(1);
 		goodsExist.setDescription("大肥羊: weight="+40+"kg");
 		goodsExist.setEmailRemind(Boolean.TRUE);
+				
+		goodsExist.setSellerId(user.getId());
+		goodsExist.setState(GoodsState.PASS_CHECK.toString());
+		goodsExist.setCommitTime(new Date(123456789));
 		
-		sellerService.addGoods(user.getId(), goodsExist);
-		
+		goodsRepository.save(goodsExist);
+			
 		goodsToChange.setId(goodsExist.getId());
 		
 		goodsToChange.setGoodsName("大号肥羊");

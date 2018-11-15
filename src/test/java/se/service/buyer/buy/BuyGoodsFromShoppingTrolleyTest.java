@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -76,6 +77,24 @@ public class BuyGoodsFromShoppingTrolleyTest {
 		shoppingTrolley.setAddTime(new Date(123456789));
 
 		shoppingTrolleyRepository.save(shoppingTrolley);
+	}
+	
+	@Test
+	public void testOK() {
+		
+	}
+	
+	@Test
+	public void testUserIdIsNull() {
+		
+	}
+	
+	/**
+	 * 有可能商品在被添加到购物车后被别人买走了，这个时候需要提示这种情况
+	 */
+	@Test
+	public void testGoodsHasBeenBuyed() {
+		
 	}
 	
 	@After

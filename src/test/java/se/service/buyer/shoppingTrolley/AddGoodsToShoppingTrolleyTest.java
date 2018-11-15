@@ -122,7 +122,7 @@ public class AddGoodsToShoppingTrolleyTest {
 	 */
 	@Test
 	public void testAddBySeller(){
-		res=buyerService.addGoodsToShoppingTrolley(user.getId(), goods.getId(), 6);
+		res=buyerService.addGoodsToShoppingTrolley(user.getId(), goods.getId(), 3);
 		
 		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
 		

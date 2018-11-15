@@ -19,6 +19,7 @@ import se.enumDefine.goodsState.GoodsState;
 import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.repositories.GoodsRepository;
+import se.repositories.ShoppingTrolleyRepository;
 import se.repositories.UserInfoRepository;
 import se.service.buyer.SearchService;
 import se.service.util.DateUtil;
@@ -34,7 +35,7 @@ public class SearchServiceImpl implements SearchService {
 	
 	@Autowired
 	private UserInfoRepository userInfoRepository;
-	
+
 	/**
 	 * 每页货品的数量
 	 */

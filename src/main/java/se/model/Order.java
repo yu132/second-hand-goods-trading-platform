@@ -1,10 +1,14 @@
 package se.model;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -72,8 +76,9 @@ public class Order {
 	/**
 	 * 订单时间类id
 	 */
-	@Column(name = "order_time_id",length = 11)
-	private Integer orderTimeId;
+	@OneToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(referencedColumnName="id",nullable=false)
+	private OrderTimes orderTime;
 	
 	/**
 	 * 订单总价

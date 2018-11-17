@@ -1,10 +1,16 @@
 package se.model;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -57,5 +63,10 @@ public class WantToBy {
 	@Column(name = "state",length = 20)
 	private String state;
 
-	
+	/**
+	 * 求购种类
+	 */
+	@ManyToMany
+	@JoinTable( joinColumns = { @JoinColumn(name = "wanted_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "type_id", referencedColumnName = "id") })
+	private Set<GoodsType> goodsTypes;
 }

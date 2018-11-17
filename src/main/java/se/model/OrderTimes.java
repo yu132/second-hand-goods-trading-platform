@@ -1,8 +1,10 @@
 package se.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -24,12 +26,6 @@ public class OrderTimes {
 	@GeneratedValue(generator = "generator")
 	@Column(name = "id",length = 11)
 	private Integer id;
-	
-	/**
-	 * 订单id
-	 */
-	@Column(name = "order_id",length = 11)
-	private Integer orderId;
 	
 	/**
 	 * 下单时间

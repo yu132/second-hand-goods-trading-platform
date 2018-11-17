@@ -1,8 +1,11 @@
 package se.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -27,8 +30,9 @@ public class GoodsPicture {
 	/**
 	 * 商品id
 	 */
-	@Column(name = "goods_id",length = 11)
-	private Integer goodsId;
+	@ManyToOne
+	@JoinColumn(name="goods_id")
+	private Goods goods;
 	
 	/**
 	 * 商品照片存放路径

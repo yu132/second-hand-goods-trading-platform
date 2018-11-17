@@ -1,11 +1,19 @@
 package se.model;
-
+import javax.persistence.JoinColumn;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -62,6 +70,19 @@ public class Goods {
 	 */
 	@Column(name = "need_email_remind",length = 10)
 	private Boolean emailRemind;
+	
+	/**
+	 * 商品种类
+	 */
+	@ManyToMany( fetch = FetchType.LAZY)
+	@JoinTable( joinColumns = { @JoinColumn(name = "goods_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "type_id", referencedColumnName = "id") })
+	private Set<GoodsType> goodsTypes;
+	
+	/**
+	 * 商品图片
+	 */
+	@OneToMany(cascade={ CascadeType.ALL })
+	private Set<GoodsPicture> goodsPicture;
 	
 	/**
 	 * 商品状态

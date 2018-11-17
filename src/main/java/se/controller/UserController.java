@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mysql.cj.xdevapi.JsonParser;
 
+//import net.minidev.json.JSONObject;
 import se.model.UserInfo;
 import se.service.user.UserService;
 
@@ -23,19 +24,20 @@ public class UserController {
 	private UserService userSrvice;
 	
     @RequestMapping(value = "login")
-	public String login(String data) throws JSONException{
+	public String login(String user) throws JSONException{
+    	String data ="{"+user+"}";
 		Map<String,Object> result=new HashMap<>();
 
 		JSONObject json=new JSONObject(data);
     	String userName=json.getString("username");
     	String password=json.getString("password");
 		result=userSrvice.login(userName, password);
-		JSONObject j=new JSONObject(result);
+		JSONObject j=new JSONObject(result.toString());
 		return j.toString();
 	}
 	
     @RequestMapping(value = "register")
-	public Object register(String data) throws JSONException{
+	public String register(String data) throws JSONException{
 		//TODO
     	Map<String,Object> result=new HashMap<>();
     	UserInfo user=new UserInfo();
@@ -48,7 +50,7 @@ public class UserController {
     	user.setNickName(json.getString("nickname"));
     	user.setPhoneNumber(json.getString("phoneNumber"));
 		result= userSrvice.register(user);
-		JSONObject j=new JSONObject(result);
+		JSONObject j=new JSONObject(result.toString());
 		
 		return j.toString();
 	}

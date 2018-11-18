@@ -14,8 +14,10 @@ import se.model.Order;
 import se.model.OrderTimes;
 import se.model.ShoppingTrolley;
 import se.repositories.GoodsRepository;
+import se.repositories.OrderRepository;
 import se.repositories.ShoppingTrolleyRepository;
 import se.service.buyer.BuyService;
+import se.service.util.DateUtil;
 
 @Service
 public class BuyServiceImpl implements BuyService {
@@ -23,7 +25,11 @@ public class BuyServiceImpl implements BuyService {
 	@Autowired
 	private GoodsRepository goodsRepository;
 	@Autowired
+	private OrderRepository orderRepository;
+	@Autowired
 	ShoppingTrolleyRepository shoppingTrolleyRepository;
+	@Autowired
+	private DateUtil dateUtil;
 	@Override
 	public Map<String,Object> buyGoodsFromGoodsId(Integer userId,Integer goodsId,Integer amount){
 		
@@ -48,6 +54,16 @@ public class BuyServiceImpl implements BuyService {
 			return result;
 		}
 		Goods goods=goodsRepository.getOne(goodsId);
+		if(goods==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason", Reason.GOODS_NOT_EXIST);
+			return result;
+		}
+		if(goods.getSellerId()==userId) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason", Reason.ILLEGAL_OPERATION_TO_OWN_GOODS);
+			return result;
+		}
 		Integer currentAmount=goods.getAmount();
 		if(currentAmount<amount) {
 			result.put("State", ExecuteState.ERROR);
@@ -60,12 +76,21 @@ public class BuyServiceImpl implements BuyService {
 		Order order=new Order();
 		order.setAmount(amount);
 		order.setBuyerId(userId);
+		order.setSellerId(goods.getSellerId());
+		order.setState(OrderState.PLACE_AN_ORDER.toString());
 		order.setGoodsId(goodsId);
+		order.setTotalPrice(amount*goods.getPrice());
+		
 		
 		OrderTimes orderTimes=new OrderTimes();
-		//TODO
 		//OrderTimes添加下单时间，order添加OrderTimes
-		return null;
+		orderTimes.setOrderTime(dateUtil.getCurrentDate());
+		order.setOrderTime(orderTimes);
+		orderRepository.save(order);
+		
+		result.put("State", ExecuteState.SUCCESS);
+		return result;
+		
 	}
 	
 	@Override

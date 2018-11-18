@@ -1,4 +1,6 @@
 package se.model;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,23 +33,23 @@ public class OrderTimes {
 	 * 下单时间
 	 */
 	@Column(name = "order_time",length = 20)
-	private Long orderTime;
+	private Date orderTime;
 	
 	/**
 	 * 支付时间
 	 */
 	@Column(name = "payment_time",length = 20)
-	private Long paymentTime;
+	private Date paymentTime;
 	
 	/**
 	 * 发货时间
 	 */
 	@Column(name = "delivery_time",length = 20)
-	private Long deliveryTime;
+	private Date deliveryTime;
 	
 	/**
 	 * 交易完成时间
 	 */
 	@Column(name = "finish_time",length = 20)
-	private Long finishTime;
+	private Date finishTime;
 }

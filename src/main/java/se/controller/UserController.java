@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mysql.cj.xdevapi.JsonParser;
 
 //import net.minidev.json.JSONObject;
 import se.model.UserInfo;
@@ -24,32 +24,29 @@ public class UserController {
 	private UserService userSrvice;
 	
     @RequestMapping(value = "login")
-	public String login(String user) throws JSONException{
-    	String data ="{"+user+"}";
+	public String login(HttpServletRequest user) throws JSONException{
 		Map<String,Object> result=new HashMap<>();
 
-		JSONObject json=new JSONObject(data);
-    	String userName=json.getString("username");
-    	String password=json.getString("password");
+    	String userName=user.getParameter("username");
+    	String password=user.getParameter("password");
 		result=userSrvice.login(userName, password);
 		JSONObject j=new JSONObject(result.toString());
 		return j.toString();
 	}
 	
     @RequestMapping(value = "register")
-	public String register(String data) throws JSONException{
+	public String register(HttpServletRequest user) throws JSONException{
 		//TODO
     	Map<String,Object> result=new HashMap<>();
-    	UserInfo user=new UserInfo();
+    	UserInfo userInfo=new UserInfo();
     	
-		JSONObject json=new JSONObject(data);
-    	user.setUserName(json.getString("username"));
-    	user.setPassword(json.getString("password"));
-    	user.setAddress(json.getString("address"));
-    	user.setEmail(json.getString("email"));
-    	user.setNickName(json.getString("nickname"));
-    	user.setPhoneNumber(json.getString("phoneNumber"));
-		result= userSrvice.register(user);
+    	userInfo.setUserName(user.getParameter("username"));
+    	userInfo.setPassword(user.getParameter("password"));
+    	userInfo.setAddress(user.getParameter("address"));
+    	userInfo.setEmail(user.getParameter("mail"));
+    	userInfo.setNickName(user.getParameter("nickname"));
+    	userInfo.setPhoneNumber(user.getParameter("phone"));
+		result= userSrvice.register(userInfo);
 		JSONObject j=new JSONObject(result.toString());
 		
 		return j.toString();

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="no-js">
     <head>
         <meta charset="utf-8">
@@ -25,6 +25,7 @@
             a{
                 cursor: pointer;
             }
+
             #acctpswd{
                 text-align: left;
             }
@@ -43,7 +44,6 @@
                 border: 1px solid #ccc;
                 transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
             }
-
             #acctpswd input:focus{
                 border-color: #3bb4f2;
             }
@@ -101,17 +101,39 @@
                     display: inline !important;
                     left: 30px;
                     top: 5px;
-                    width: auto;
+                    width: auto
                 }
                 #verifyCode {
-                    left: 92px;
+                    left: 92px
                 }
                 #change {
-                    left: 97px;
+                    left: 97px
                 }
             }
 
-
+            #top{
+                margin-top: 50px
+            }
+            #search{
+                float: left;
+                margin-left: 20%;
+                width:55%
+            }
+            #go{
+                font-size: 1.7rem
+            }
+            #labels{
+                margin-left: 20%;
+                margin-top: 20px
+            }
+            #goods{
+                margin-left: 15%;
+                margin-top: 20px;
+                width:70%;
+                height: 1000px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
         </style>
 
         <script src="../static/js/jquery-3.3.1.js"></script>
@@ -147,22 +169,31 @@
                                 else
                                     user.mail = $("#username").val();
                                 user.password = $("#password").val();
-                                user=JSON.stringify(user)
-                                user=user.substring(1,user.length-1);
+                                // user = JSON.stringify(user);
+                                // user = user.substring(1, user.length-1);
                                 $.ajax({
-                                    url: "http://localhost:8080/user/login?user="+user,
-                                    //data: JSON.stringify(user),
+                                    url: "/user/login",
+                                    data: user,
                                     type: "GET",
-                                    contentType: "application/text;charset=utf-8",
+                                    contentType: "application/json;charset=utf-8",
                                     success: function(response){
-                                    	alert(response)
-                                    	info=JSON.parse(response)
-                                    	alert(info.State)
+                                        let info = JSON.parse(response);
                                         if(info.State==="SUCCESS"){
                                             alert("登录成功(≥v≤)");
+
                                         }
-                                        else
-                                        	alert("111");
+                                        else{
+                                            switch(info.Reason){
+                                                case "USERNAME_NOT_EXIST":
+                                                	alert("用户名不存在……");
+                                                	break;
+                                                case "PASSWORD_INCORRECT":
+                                                    alert("密码错误……");
+                                                	break;
+                                                default:
+													alert(info.Reason);
+                                            }
+                                        }
                                     }
                                 });
                             }else{
@@ -256,6 +287,24 @@
                     <span class="am-modal-btn" data-am-modal-cancel>取消</span>
                 </div>
             </div>
+        </div>
+
+        <div id="top" class="am-form">
+            <input id="search" type="text" placeholder="今天逛点啥">
+            <input id="go" class="am-btn am-btn-primary" type="button" value="搜索">
+        </div>
+
+        <div id="labels">
+            <nav>
+                <a style="font-weight: 400;" href="">标签&nbsp;&nbsp;</a>
+                <a style="font-weight: 400;" href="">标签&nbsp;&nbsp;</a>
+                <a style="font-weight: 400;" href="">标签&nbsp;&nbsp;</a>
+                <a style="font-weight: 400;" href="">标签&nbsp;&nbsp;</a>
+            </nav>
+        </div>
+
+        <div id="goods">
+            gan
         </div>
     </body>
 </html>

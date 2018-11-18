@@ -111,24 +111,34 @@ $(document).ready(function(){
             return;
         }
 
-        alert("ok");
         let user = {};
         user.username = $("#username").val();
+        alert(user.username)
         user.password = $("#password").val();
+        user.nickname = $("#nickname").val();
         user.mail = $("#mail").val();
         user.phone = $("#phone").val();
         user.address = $("#address").val();
 
         $.ajax({
-            url: "register",
-            data: JSON.stringify(user),
-            type: "POST",
+            url: "/user/register",
+            data: user,
+            type: "GET",
             contentType: "application/json;charset=utf-8",
             success: function(response){
-                if(response.success){
+                let info = JSON.parse(response);
+                if(info.State==="SUCCESS"){
                     alert("注册成功(≥v≤)");
                 }
-        }
+                else
+                    switch (info.Reason) {
+                        case "USERNAME_EXIST":
+                            alert("用户名已存在……");
+                            break;
+                        default:
+                            alert(info.Reason);
+                    }
+            }
         });
 
     });

@@ -39,7 +39,6 @@ public class UserController {
 		//TODO
     	Map<String,Object> result=new HashMap<>();
     	UserInfo userInfo=new UserInfo();
-    	
     	userInfo.setUserName(user.getParameter("username"));
     	userInfo.setPassword(user.getParameter("password"));
     	userInfo.setAddress(user.getParameter("address"));
@@ -48,6 +47,7 @@ public class UserController {
     	userInfo.setPhoneNumber(user.getParameter("phone"));
 		result= userSrvice.register(userInfo);
 		JSONObject j=new JSONObject(result.toString());
+		System.out.println(result);
 		
 		return j.toString();
 	}

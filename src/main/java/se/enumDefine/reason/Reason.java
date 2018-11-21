@@ -57,4 +57,6 @@ public enum Reason {
 	AMOUNT_EXCESSIVE,
 	
 	ILLEGAL_OPERATION_TO_OWN_GOODS,
+	
+	GOODS_BUYED,
 }

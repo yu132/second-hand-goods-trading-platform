@@ -10,7 +10,7 @@ public interface BuyService {
 
 	Map<String, Object> buyGoodsFromShoppingTrolley(Integer userId);
 
-	Map<String, Object> checkAndAddReceivingInformation(Integer userId, Integer receivingInformationId);
+	Map<String, Object> checkAndAddReceivingInformation(Integer userId,Integer orderId, Integer receivingInformationId);
 
 	Map<String, Object> payOrder(Integer userId, Integer orderId);
 

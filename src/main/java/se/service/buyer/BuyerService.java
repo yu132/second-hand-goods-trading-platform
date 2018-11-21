@@ -74,7 +74,7 @@ public class BuyerService implements BuyService,SearchService,ShoppingTrolleySer
 	}
 
 	@Override
-	public Map<String, Object> checkAndAddReceivingInformation(Integer userId, Integer receivingInformationId) {
+	public Map<String, Object> checkAndAddReceivingInformation(Integer userId,Integer orderId, Integer receivingInformationId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

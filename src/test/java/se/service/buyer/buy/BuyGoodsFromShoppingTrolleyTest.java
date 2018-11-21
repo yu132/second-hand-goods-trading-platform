@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import se.Application;
+import se.enumDefine.executeState.ExecuteState;
 import se.enumDefine.goodsState.GoodsState;
+import se.enumDefine.reason.Reason;
 import se.model.Goods;
 import se.model.ShoppingTrolley;
 import se.model.UserInfo;
@@ -81,12 +84,18 @@ public class BuyGoodsFromShoppingTrolleyTest {
 	
 	@Test
 	public void testOK() {
+		Map<String,Object> res=buyerService.buyGoodsFromShoppingTrolley(user2.getId());
 		
+		Assert.assertEquals(ExecuteState.SUCCESS,res.get("State"));
 	}
 	
 	@Test
 	public void testUserIdIsNull() {
+		Map<String,Object> res=buyerService.buyGoodsFromShoppingTrolley(null);
 		
+		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
+		
+		Assert.assertEquals(Reason.USER_ID_IS_NULL,res.get("Reason"));
 	}
 	
 	/**
@@ -94,7 +103,13 @@ public class BuyGoodsFromShoppingTrolleyTest {
 	 */
 	@Test
 	public void testGoodsHasBeenBuyed() {
+		goods.setState(GoodsState.BUYED.toString());
 		
+		goodsRepository.save(goods);
+		
+		Assert.assertEquals(ExecuteState.ERROR,res.get("State"));
+		
+		Assert.assertEquals(Reason.GOODS_BUYED,res.get("Reason"));
 	}
 	
 	@After

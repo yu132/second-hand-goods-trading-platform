@@ -13,9 +13,11 @@ import se.model.Goods;
 import se.model.Order;
 import se.model.OrderTimes;
 import se.model.ShoppingTrolley;
+import se.model.UserReceiverInfo;
 import se.repositories.GoodsRepository;
 import se.repositories.OrderRepository;
 import se.repositories.ShoppingTrolleyRepository;
+import se.repositories.UserReceiverInfoRepository;
 import se.service.buyer.BuyService;
 import se.service.util.DateUtil;
 
@@ -28,6 +30,8 @@ public class BuyServiceImpl implements BuyService {
 	private OrderRepository orderRepository;
 	@Autowired
 	ShoppingTrolleyRepository shoppingTrolleyRepository;
+	@Autowired
+	UserReceiverInfoRepository userReceiverInfoRepository;
 	@Autowired
 	private DateUtil dateUtil;
 	@Override
@@ -105,16 +109,52 @@ public class BuyServiceImpl implements BuyService {
 			return result;
 		}
 		Iterable<ShoppingTrolley> shoppingTrolleys=shoppingTrolleyRepository.findAllByUserId(userId);
+		
+		OrderTimes orderTimes=new OrderTimes();
+		orderTimes.setOrderTime(dateUtil.getCurrentDate());
 		for(ShoppingTrolley s:shoppingTrolleys) {
+			//每条购物车生成一个订单
+			Order order=new Order();
+			Goods goods=goodsRepository.getOne(s.getGoodsId());
+			order.setSellerId(goods.getSellerId());
+			order.setBuyerId(s.getUserId());
+			order.setGoodsId(s.getGoodsId());
+			order.setAmount(s.getAmount());
+			order.setState(OrderState.PLACE_AN_ORDER.toString());
+			order.setTotalPrice(order.getAmount()*goods.getPrice());
+			order.setOrderTime(orderTimes);
 			
+			orderRepository.save(order);
 		}
-		return null;
+		result.put("State", ExecuteState.SUCCESS);
+		return result;
 	}
 	
 	@Override
-	public Map<String,Object> checkAndAddReceivingInformation(Integer userId,Integer receivingInformationId){
-		
+	public Map<String,Object> checkAndAddReceivingInformation(Integer userId,Integer orderId,Integer receivingInformationId){
+		Map<String,Object> result=new HashMap<>();
+
 		//TODO
+		if(userId==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason", Reason.USER_ID_IS_NULL);
+			return result;
+		}
+		if(orderId==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason", null);
+			return result;
+		}
+		if(receivingInformationId==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason", null);
+			return result;
+		}
+		Order order=orderRepository.getOne(orderId);
+		UserReceiverInfo userReceiverInfo= userReceiverInfoRepository.getOne(receivingInformationId);
+		order.setBuyerName(userReceiverInfo.getRecriverName());
+		order.setBuyerAddress(userReceiverInfo.getRecriverAddress());
+		//order.setRemarks(remarks);
 		
 		return null;
 	}
@@ -129,9 +169,19 @@ public class BuyServiceImpl implements BuyService {
 	
 	@Override
 	public Map<String,Object> getOrder(Integer userId,Integer orderId){
+		Map<String,Object> result=new HashMap<>();
 
 		//TODO
-		
+		if(userId==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason", Reason.USER_ID_IS_NULL);
+			return result;
+		}
+		if(orderId==null) {
+			result.put("State", ExecuteState.ERROR);
+			result.put("Reason", null);
+			return result;
+		}
 		return null;
 	}
 	

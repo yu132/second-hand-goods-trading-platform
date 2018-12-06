@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.enumDefine.orderState.OrderState;
+import se.enumDefine.wayOfPay.WayOfPay;
 
 @Service
 public class BuyerService implements BuyService,SearchService,ShoppingTrolleyService{
@@ -74,13 +75,14 @@ public class BuyerService implements BuyService,SearchService,ShoppingTrolleySer
 	}
 
 	@Override
-	public Map<String, Object> checkAndAddReceivingInformation(Integer userId,Integer orderId, Integer receivingInformationId) {
+	public Map<String, Object> checkAndAddReceivingInformation(Integer userId, Integer orderId,
+			Integer receivingInformationId, String remarks) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Map<String, Object> payOrder(Integer userId, Integer orderId) {
+	public Map<String, Object> payOrder(Integer userId, Integer orderId, WayOfPay wayOfPay) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -102,6 +104,8 @@ public class BuyerService implements BuyService,SearchService,ShoppingTrolleySer
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 	
 	

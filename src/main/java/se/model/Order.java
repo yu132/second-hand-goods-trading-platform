@@ -66,6 +66,11 @@ public class Order {
 	 */
 	@Column(name = "buyer_address",length = 255)
 	private String buyerAddress;
+	/**
+	 * 收件人电话
+	 */
+	@Column(name = "buyer_phonenumber",length = 11)
+	private String buyerPhoneNumber;
 	
 	/**
 	 * 订单备注

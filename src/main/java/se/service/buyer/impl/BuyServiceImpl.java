@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import se.enumDefine.executeState.ExecuteState;
 import se.enumDefine.orderState.OrderState;
 import se.enumDefine.reason.Reason;
+import se.enumDefine.wayOfPay.WayOfPay;
 import se.model.Goods;
 import se.model.Order;
 import se.model.OrderTimes;
@@ -147,7 +148,7 @@ public class BuyServiceImpl implements BuyService {
 	 * 给订单添加收货信息
 	 */
 	@Override
-	public Map<String,Object> checkAndAddReceivingInformation(Integer userId,Integer orderId,Integer receivingInformationId){
+	public Map<String,Object> checkAndAddReceivingInformation(Integer userId,Integer orderId,Integer receivingInformationId,String remarks){
 		Map<String,Object> result=new HashMap<>();
 
 		if(userId==null) {
@@ -167,11 +168,11 @@ public class BuyServiceImpl implements BuyService {
 		}
 		Order order=orderRepository.getOne(orderId);
 		UserReceiverInfo userReceiverInfo= userReceiverInfoRepository.getOne(receivingInformationId);
+		
 		order.setBuyerName(userReceiverInfo.getRecriverName());
 		order.setBuyerAddress(userReceiverInfo.getRecriverAddress());
-		//order.setRemarks(remarks);
-		//order.setWayOfPay(wayOfPay);
-		//TODO
+		order.setBuyerPhoneNumber(userReceiverInfo.getRecriverPhoneNumber());
+		order.setRemarks(remarks);
 		orderRepository.saveAndFlush(order);
 		
 		result.put("State", ExecuteState.SUCCESS);
@@ -181,7 +182,7 @@ public class BuyServiceImpl implements BuyService {
 	 * 给订单付款
 	 */
 	@Override
-	public Map<String,Object> payOrder(Integer userId,Integer orderId){
+	public Map<String,Object> payOrder(Integer userId,Integer orderId,WayOfPay wayOfPay){
 		Map<String,Object> result=new HashMap<>();
 		if(userId==null) {
 			result.put("State", ExecuteState.ERROR);
@@ -195,6 +196,7 @@ public class BuyServiceImpl implements BuyService {
 		}
 		Order order=orderRepository.getOne(orderId);
 		order.setState(OrderState.PAY_AN_ORDER.toString());
+		order.setWayOfPay(wayOfPay.toString());
 		orderRepository.saveAndFlush(order);
 
 		result.put("State", ExecuteState.SUCCESS);
